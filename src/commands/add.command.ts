@@ -31,7 +31,7 @@ export class AddCommandRunner implements ICommandRunner {
         const date = Date.now()
         return {
             Id: newId,
-            Name: request.name,
+            Name: request.name.replace(/\^/g, ''),
             CreatedAt: date,
             UpdatedAt: date,
             Description: '',

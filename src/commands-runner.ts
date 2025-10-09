@@ -1,13 +1,14 @@
 import { AddCommandRunner } from "./commands/add.command.js";
 import { DeleteCommandRunner } from "./commands/delete.command.js";
 import type { ICommandRunner, ICommandsRunner } from "./types/commands/commands.types.js";
-import type { AddCommandRequest, DeleteCommandRequest, CommandRequest } from "./types/commands/command.requests.js";
+import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest } from "./types/commands/command.requests.js";
+import { EditCommandRunner } from "./commands/edit.command.js";
 
 enum AllowedCommands {
     ADD = 'add',
     EDIT = 'edit',
     DELETE = 'delete',
-    LIST = 'list' 
+    LIST = 'list'
 };
 
 export class CommandsRunner implements ICommandsRunner {
@@ -21,17 +22,19 @@ export class CommandsRunner implements ICommandsRunner {
         const params = process.argv.slice(2);
         this.checkParams(params);
         const [ command, ] = params;
-        const [ commandTask, request ] = this.createTaskCommand(command ?? '');
-        commandTask.run(request);
+        const [ commandRunner, request ] = this.createcommandRunner(command ?? '');
+        commandRunner.run(request);
     }
 
-    private createTaskCommand(command: string): [ICommandRunner, CommandRequest] {
+    private createcommandRunner(command: string): [ICommandRunner, CommandRequest] {
         const params = this.params.slice(1);
         switch (command) {
             case AllowedCommands.ADD.toString():
-                return this.createAddTaskCommand(params);
+                return this.createAddCommand(params);
+            case AllowedCommands.EDIT.toString():
+                return this.createEditCommand(params);
             case AllowedCommands.DELETE.toString():
-              return this.createDeleteTaskCommand(params);
+              return this.createDeleteCommand(params);
         }
         throw new RangeError('generic error');
     }
@@ -42,20 +45,28 @@ export class CommandsRunner implements ICommandsRunner {
         const allowedCommands = Object.keys(AllowedCommands);
         if (allowedCommands.indexOf(command?.toUpperCase() ?? '') === -1) throw new RangeError(`command "${command}" is not recognized`);
     }
-
-    private createAddTaskCommand(params: string[]): [ICommandRunner, CommandRequest] {
+    
+    private createAddCommand(params: string[]): [ICommandRunner, CommandRequest] {
         const [ name, description ] = params;
         const request: AddCommandRequest = {name: name ?? '', description}; 
-        const taskCommand = new AddCommandRunner();
+        const commandRunner = new AddCommandRunner();
 
-        return [ taskCommand, request ];
+        return [ commandRunner, request ];
     }
 
-    private createDeleteTaskCommand(params: string[]): [ICommandRunner, CommandRequest] {
+    private createEditCommand(params: string[]): [ICommandRunner, CommandRequest] {
+        const [ id, name ] = params;
+        const request: EditCommandRequest = {id: Number(id), name: name ?? ''};
+        const commandRunner = new EditCommandRunner();
+
+        return [ commandRunner, request ];
+    }
+
+    private createDeleteCommand(params: string[]): [ICommandRunner, CommandRequest] {
         const [ id ] = params;
         const request: DeleteCommandRequest = {id: Number(id)};
-        const taskCommand = new DeleteCommandRunner();
+        const commandRunner = new DeleteCommandRunner();
         
-        return [ taskCommand, request ];
+        return [ commandRunner, request ];
     }
 };

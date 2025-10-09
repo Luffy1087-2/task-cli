@@ -4,7 +4,7 @@ import type { TaskJson } from '../types/core/task.types.js';
 
 export class TaskManager {
     private readonly basePath: string;
-    private tasksJson: TaskJson[] = [];
+    private tasksJson: TaskJson[] | undefined;
 
     constructor() {
         this.basePath = path.normalize(`${process.cwd()}/task`);
@@ -20,23 +20,31 @@ export class TaskManager {
         const taskJsonBuffer = fs.readFileSync(taskJsonFilePath);
         const tasksJson = JSON.parse(taskJsonBuffer.toString());
         this.tasksJson = tasksJson;
-        return this.tasksJson;
+        return tasksJson;
     }
 
     updateTasksJson() {
-        const jsonString = JSON.stringify(this.tasksJson, null, 2);
+        const tasks = this.getTasksJson();
+        const jsonString = JSON.stringify(tasks, null, 2);
         const taskJsonFilePath = path.normalize(`${this.basePath}/tasks.json`);
         fs.ensureDirSync(this.basePath);
         fs.writeFileSync(taskJsonFilePath, jsonString);
     }
 
     getTaskIndexId(id: number) {
-        const index = this.tasksJson.findIndex(t => t.Id === id);
+        const tasks = this.getTasksJson();
+        const index = tasks.findIndex(t => t.Id === id);
         return index;
     }
 
     getTaskById(id: number) {
-        const task = this.tasksJson.find(t => t.Id === id);
+        const tasks = this.getTasksJson();
+        const task = tasks.find(t => t.Id === id);
         return task;
+    }
+
+    private getTasksJson(): TaskJson[] {
+        if (!this.tasksJson) return this.readOrCreate();
+        return this.tasksJson;
     }
 }

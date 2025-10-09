@@ -20,7 +20,7 @@ export class EditCommandRunner implements ICommandRunner {
     }
 
     private editTask(task: TaskJson, request: EditCommandRequest) {
-        task.Name = request.name;
+        task.Name = request.name.replace(/\^/g, '');
         task.UpdatedAt = Date.now();
     }
 }
