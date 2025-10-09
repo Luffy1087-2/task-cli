@@ -1,14 +1,14 @@
 // Runners
-import { AddCommandRunner } from "./commands/add.command.js";
-import { DeleteCommandRunner } from "./commands/delete.command.js";
-import { EditCommandRunner } from "./commands/edit.command.js";
+import { AddCommandRunner } from "../commands/add.command-runner.js";
+import { DeleteCommandRunner } from "../commands/delete.command-runner.js";
+import { EditCommandRunner } from "../commands/edit.command-runner.js";
 
 // Types 
-import type { ICommandRunner, ICommandsRunner } from "./types/commands/commands.types.js";
-import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest, ListCommandRequest, ChangeStatusCommandRequest } from "./types/commands/command.requests.js";
-import { TaskStatus } from "./types/core/task.types.js";
-import { ListCommandRunner } from "./commands/list.command.js";
-import { ChangeStatusCommandRunner } from "./commands/change-status.command.js";
+import type { ICommandRunner } from "../types/commands/command-runner.types.js";
+import type { ICommandsRunnerFactory as ICommandsRunnerFactory } from "../types/factory/ICommandsRunnerFactory.js";
+import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest, ListCommandRequest, ChangeStatusCommandRequest } from "../types/commands/command.requests.js";
+import { ListCommandRunner } from "../commands/list.command-runner.js";
+import { ChangeStatusCommandRunner } from "../commands/change-status.command-runner.js";
 
 enum AllowedCommands {
     ADD = 'add',
@@ -18,7 +18,7 @@ enum AllowedCommands {
     LIST = 'list'
 };
 
-export class CommandsRunner implements ICommandsRunner {
+export class CommandsRunnerFactory implements ICommandsRunnerFactory {
     private readonly params: string[];
 
     constructor(params: string[]) {

@@ -1,5 +1,5 @@
 import { TaskManager } from "../core/task-manager.js";
-import type { ICommandRunner } from "../types/commands/commands.types.js";
+import type { ICommandRunner } from "../types/commands/command-runner.types.js";
 import type { AddCommandRequest } from "../types/commands/command.requests.js";
 import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
 

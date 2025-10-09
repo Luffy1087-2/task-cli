@@ -1,4 +1,4 @@
-import type { ICommandRunner } from "../types/commands/commands.types.js";
+import type { ICommandRunner } from "../types/commands/command-runner.types.js";
 import type { DeleteCommandRequest } from "../types/commands/command.requests.js";
 import { TaskManager } from "../core/task-manager.js";
 
