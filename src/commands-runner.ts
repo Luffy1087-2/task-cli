@@ -1,8 +1,11 @@
+// Runners
 import { AddCommandRunner } from "./commands/add.command.js";
 import { DeleteCommandRunner } from "./commands/delete.command.js";
+import { EditCommandRunner } from "./commands/edit.command.js";
+
+// Types 
 import type { ICommandRunner, ICommandsRunner } from "./types/commands/commands.types.js";
 import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest } from "./types/commands/command.requests.js";
-import { EditCommandRunner } from "./commands/edit.command.js";
 
 enum AllowedCommands {
     ADD = 'add',
