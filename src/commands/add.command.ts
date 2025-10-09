@@ -1,15 +1,16 @@
 import { TaskManager } from "../core/task-manager.js";
-import type { AddTaskRequest, ICommand } from "../types/commands/commands.types.js";
+import type { ICommandRunner } from "../types/commands/commands.types.js";
+import type { AddCommandRequest } from "../types/commands/command.requests.js";
 import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
 
-export class AddTaskCommand implements ICommand {
+export class AddCommandRunner implements ICommandRunner {
     private readonly taskManager: TaskManager; 
     
     constructor() {
         this.taskManager = new TaskManager();
     }
 
-    execute(request: AddTaskRequest): void {
+    run(request: AddCommandRequest): void {
         if (!request.name || !request.name.length) throw new TypeError("taskName should be a valid string");
         const tasksJson = this.taskManager.readOrCreate();
         const newId = this.getNewId(tasksJson);
@@ -26,7 +27,7 @@ export class AddTaskCommand implements ICommand {
         return maxId;
     }
 
-    private getNewTask(newId: number, request: AddTaskRequest): TaskJson {
+    private getNewTask(newId: number, request: AddCommandRequest): TaskJson {
         const date = Date.now()
         return {
             Id: newId,

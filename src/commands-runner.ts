@@ -1,15 +1,16 @@
-import { AddTaskCommand } from "./commands/add.command.js";
-import { DeleteTaskCommand } from "./commands/delete.commands.js";
-import type { AddTaskRequest, DeleteTaskRequest, ICommand, ICommandRunner, TaskRequest } from "./types/commands/commands.types.js";
+import { AddCommandRunner } from "./commands/add.command.js";
+import { DeleteCommandRunner } from "./commands/delete.command.js";
+import type { ICommandRunner, ICommandsRunner } from "./types/commands/commands.types.js";
+import type { AddCommandRequest, DeleteCommandRequest, CommandRequest } from "./types/commands/command.requests.js";
 
 enum AllowedCommands {
-    add = 'add',
-    edit = 'edit',
-    delete = 'delete',
-    list = 'list' 
+    ADD = 'add',
+    EDIT = 'edit',
+    DELETE = 'delete',
+    LIST = 'list' 
 };
 
-export class CommandRunner implements ICommandRunner {
+export class CommandRunner implements ICommandsRunner {
     private readonly params: string[];
 
     constructor(params: string[]) {
@@ -21,15 +22,15 @@ export class CommandRunner implements ICommandRunner {
         this.checkParams(params);
         const [ command, ] = params;
         const [ commandTask, request ] = this.createTaskCommand(command ?? '');
-        commandTask.execute(request);
+        commandTask.run(request);
     }
 
-    private createTaskCommand(command: string): [ICommand, TaskRequest] {
+    private createTaskCommand(command: string): [ICommandRunner, CommandRequest] {
         const params = this.params.slice(1);
         switch (command) {
-            case AllowedCommands.add:
+            case AllowedCommands.ADD:
                 return this.createAddTaskCommand(params);
-            case AllowedCommands.delete:
+            case AllowedCommands.DELETE:
               return this.createDeleteTaskCommand(params);
         }
         throw new RangeError('generic error');
@@ -42,18 +43,18 @@ export class CommandRunner implements ICommandRunner {
         if (allowedCommands.indexOf(command ?? '') === -1) throw new RangeError(`command "${command}" is not recognized`);
     }
 
-    private createAddTaskCommand(params: string[]): [ICommand, TaskRequest] {
+    private createAddTaskCommand(params: string[]): [ICommandRunner, CommandRequest] {
         const [ name, description ] = params;
-        const request: AddTaskRequest = {name: name ?? '', description}; 
-        const taskCommand = new AddTaskCommand();
+        const request: AddCommandRequest = {name: name ?? '', description}; 
+        const taskCommand = new AddCommandRunner();
 
         return [ taskCommand, request ];
     }
 
-    private createDeleteTaskCommand(params: string[]): [ICommand, TaskRequest] {
+    private createDeleteTaskCommand(params: string[]): [ICommandRunner, CommandRequest] {
         const [ id ] = params;
-        const request: DeleteTaskRequest = {id: Number(id)};
-        const taskCommand = new DeleteTaskCommand();
+        const request: DeleteCommandRequest = {id: Number(id)};
+        const taskCommand = new DeleteCommandRunner();
         
         return [ taskCommand, request ];
     }
