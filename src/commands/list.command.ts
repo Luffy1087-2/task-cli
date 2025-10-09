@@ -1,0 +1,44 @@
+import { TaskManager } from "../core/task-manager.js";
+import type { ListCommandRequest } from "../types/commands/command.requests.js";
+import type { ICommandRunner } from "../types/commands/commands.types.js";
+import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
+
+export class ListCommandRunner implements ICommandRunner {
+    private readonly taskManager: TaskManager;
+    
+    constructor() {
+        this.taskManager = new TaskManager();
+    }
+
+    run(request: ListCommandRequest): void {
+        const tasksJson = this.taskManager.readOrCreate();
+        if (request.statusCode === undefined) return void tasksJson.forEach(t => this.printTask(t));
+        const filteredTasks = tasksJson.filter(t => t.StatusCode === request.statusCode);
+        filteredTasks.forEach(t => this.printTask(t));
+    }
+
+    private printTask(task: TaskJson) {
+        console.log('-');
+        console.log(`Id: ${task.Id}`);
+        console.log(`Name: ${task.Name}`);
+        console.log(`Status: ${TaskStatus[task.StatusCode]} - ${task.StatusCode}`);
+        console.log(`Created At: ${this.getDateToTimestampByLocale(task.CreatedAt)}`);
+        console.log(`Updated At: ${this.getDateToTimestampByLocale(task.UpdatedAt)}`);
+        console.log('-');
+    }
+
+    private getDateToTimestampByLocale(timestamp: number, culture: Intl.LocalesArgument = 'it-IT') {
+        const date = new Date(timestamp);
+        const writtenDate = date.toLocaleString(culture, {
+            day: "2-digit",
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+
+        return writtenDate;
+    }
+}

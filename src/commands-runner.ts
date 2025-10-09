@@ -5,11 +5,15 @@ import { EditCommandRunner } from "./commands/edit.command.js";
 
 // Types 
 import type { ICommandRunner, ICommandsRunner } from "./types/commands/commands.types.js";
-import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest } from "./types/commands/command.requests.js";
+import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest, ListCommandRequest, ChangeStatusCommandRequest } from "./types/commands/command.requests.js";
+import { TaskStatus } from "./types/core/task.types.js";
+import { ListCommandRunner } from "./commands/list.command.js";
+import { ChangeStatusCommandRunner } from "./commands/change-status.command.js";
 
 enum AllowedCommands {
     ADD = 'add',
     EDIT = 'edit',
+    CHANGE_STATUS = 'changeStatus',
     DELETE = 'delete',
     LIST = 'list'
 };
@@ -36,8 +40,12 @@ export class CommandsRunner implements ICommandsRunner {
                 return this.createAddCommandRunner(params);
             case AllowedCommands.EDIT.toString():
                 return this.createEditCommandRunner(params);
+            case AllowedCommands.CHANGE_STATUS.toString():
+                return this.createChageStatusCommandRunner(params);
             case AllowedCommands.DELETE.toString():
               return this.createDeleteCommandRunner(params);
+            case AllowedCommands.LIST.toString():
+                return this.createListCommandRunner(params);
         }
         throw new RangeError('generic error');
     }
@@ -45,8 +53,17 @@ export class CommandsRunner implements ICommandsRunner {
     private checkParams(params: string[]) {
         if (!params.length) throw Error('no parameter found');
         const [command, ] = params;
-        const allowedCommands = Object.keys(AllowedCommands);
-        if (allowedCommands.indexOf(command?.toUpperCase() ?? '') === -1) throw new RangeError(`command "${command}" is not recognized`);
+        const allowedCommands = Object.values(AllowedCommands);
+        if (allowedCommands.indexOf(command as AllowedCommands) === -1) throw new RangeError(`command "${command}" is not recognized`);
+    }
+    
+    createListCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
+        const [ status ] = params;
+        const statusCode = status ? Number(status) : undefined;
+        const request: ListCommandRequest = { statusCode: statusCode };
+        const commandRunner = new ListCommandRunner();
+
+        return [ commandRunner, request ];
     }
     
     private createAddCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
@@ -62,6 +79,14 @@ export class CommandsRunner implements ICommandsRunner {
         const request: EditCommandRequest = {id: Number(id), name: name ?? ''};
         const commandRunner = new EditCommandRunner();
 
+        return [ commandRunner, request ];
+    }
+
+    private createChageStatusCommandRunner(params: string[]): [ ICommandRunner, CommandRequest ] {
+        const [ id, statusCode ] = params;
+        const request: ChangeStatusCommandRequest = {id: Number(id), statusCode: Number(statusCode)};
+        const commandRunner = new ChangeStatusCommandRunner();
+        
         return [ commandRunner, request ];
     }
 

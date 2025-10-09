@@ -35,7 +35,7 @@ export class AddCommandRunner implements ICommandRunner {
             CreatedAt: date,
             UpdatedAt: date,
             Description: '',
-            Status: TaskStatus.TODO
+            StatusCode: TaskStatus.TODO
         };
     }
 }

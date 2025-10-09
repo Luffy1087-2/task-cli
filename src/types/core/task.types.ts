@@ -8,7 +8,7 @@ export type TaskJson = {
     Id: number,
     Name: string,
     Description: string,
-    Status: TaskStatus
+    StatusCode: TaskStatus
     CreatedAt: number,
     UpdatedAt: number
 };
