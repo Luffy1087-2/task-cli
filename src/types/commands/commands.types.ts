@@ -1,9 +1,11 @@
+import type { TaskStatus } from "../core/task.types.js";
+
 export type AddTaskRequest = {
     name: string;
-    description?: string;
+    description?: string | undefined;
 };
 
-export type EditTaskNameRequest = {
+export type EditTaskRequest = {
     id: number;
     name: string;
 };
@@ -14,15 +16,17 @@ export type DeleteTaskRequest = {
 
 export type ChangeStatusTaskRequest = {
     id: number,
-    type: 0 | 1 | 2
+    status: TaskStatus
 };
 
 export type ListTaskRequest = {
-    filter?: 'done' | 'todo' | 'progress';
+    status?: TaskStatus | undefined;
 }
 
+export type TaskRequest = AddTaskRequest | EditTaskRequest | DeleteTaskRequest | ListTaskRequest;
+
 export interface ICommand {
-    execute(request: AddTaskRequest | EditTaskNameRequest | DeleteTaskRequest | ChangeStatusTaskRequest | ListTaskRequest): void;
+    execute(request: TaskRequest): void;
 };
 
 export interface ICommandRunner {
