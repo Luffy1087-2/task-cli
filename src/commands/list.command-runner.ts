@@ -4,7 +4,7 @@ import type { ICommandRunner } from "../types/commands/command-runner.types.js";
 import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
 
 export class ListCommandRunner implements ICommandRunner {
-    private readonly taskManager: TaskManager;
+    private readonly taskManager;
     
     constructor() {
         this.taskManager = new TaskManager();

@@ -5,7 +5,7 @@
   "main": "start.ts",
   "type": "module",
   "scripts": {
-    "task-cli": "npx tsc && node ./dist/task-cli.js",
+    "task-cli": "npx tsc --build --clean && npx tsc && node ./dist/task-cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
