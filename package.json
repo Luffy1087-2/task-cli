@@ -1,0 +1,23 @@
+{
+  "name": "task-cli",
+  "version": "1.0.0",
+  "description": "Utility for creating and managing tasks from the cli",
+  "main": "start.ts",
+  "type": "module",
+  "scripts": {
+    "task-cli": "npx tsc && node ./dist/task-cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "task-cli",
+    "task",
+    "cli",
+    "tasks"
+  ],
+  "author": "Francesco Fedico",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.7.0",
+    "typescript": "^5.9.3"
+  }
+}
