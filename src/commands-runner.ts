@@ -10,7 +10,7 @@ enum AllowedCommands {
     LIST = 'list' 
 };
 
-export class CommandRunner implements ICommandsRunner {
+export class CommandsRunner implements ICommandsRunner {
     private readonly params: string[];
 
     constructor(params: string[]) {
@@ -28,9 +28,9 @@ export class CommandRunner implements ICommandsRunner {
     private createTaskCommand(command: string): [ICommandRunner, CommandRequest] {
         const params = this.params.slice(1);
         switch (command) {
-            case AllowedCommands.ADD:
+            case AllowedCommands.ADD.toString():
                 return this.createAddTaskCommand(params);
-            case AllowedCommands.DELETE:
+            case AllowedCommands.DELETE.toString():
               return this.createDeleteTaskCommand(params);
         }
         throw new RangeError('generic error');
@@ -40,7 +40,7 @@ export class CommandRunner implements ICommandsRunner {
         if (!params.length) throw Error('no parameter found');
         const [command, ] = params;
         const allowedCommands = Object.keys(AllowedCommands);
-        if (allowedCommands.indexOf(command ?? '') === -1) throw new RangeError(`command "${command}" is not recognized`);
+        if (allowedCommands.indexOf(command?.toUpperCase() ?? '') === -1) throw new RangeError(`command "${command}" is not recognized`);
     }
 
     private createAddTaskCommand(params: string[]): [ICommandRunner, CommandRequest] {

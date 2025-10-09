@@ -1,4 +1,4 @@
-import { CommandRunner } from "./src/command-runner.js";
+import { CommandsRunner } from "./src/commands-runner.js";
 
-const runner = new CommandRunner(process.argv);
+const runner = new CommandsRunner(process.argv);
 runner.run();

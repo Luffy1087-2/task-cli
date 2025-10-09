@@ -16,15 +16,15 @@ export class AddCommandRunner implements ICommandRunner {
         const newId = this.getNewId(tasksJson);
         const newTask = this.getNewTask(newId, request);
         tasksJson.push(newTask);
-        this.taskManager.writeTasksJson(tasksJson);
+        this.taskManager.updateTasksJson();
         console.log('ARRIVED HERE IN ADD TASK')
     }
 
     private getNewId(tasksJson: TaskJson[]): number {
         const ids = tasksJson.map(t => t.Id);
-        const maxId = ids.length ? Math.max(...ids) : 1;
+        const maxId = ids.length ? Math.max(...ids) : 0;
 
-        return maxId;
+        return maxId + 1;
     }
 
     private getNewTask(newId: number, request: AddCommandRequest): TaskJson {
