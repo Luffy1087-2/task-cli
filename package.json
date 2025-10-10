@@ -1,12 +1,12 @@
 {
-  "name": "task-cli",
+  "name": "task-tracker-cli",
   "version": "1.0.0",
   "description": "Utility for creating and managing tasks from the cli",
   "main": "start.ts",
   "type": "module",
   "scripts": {
     "compile:watch": "npx tsc -w",
-    "task-cli": "npx tsc --build --clean && npx tsc && node ./dist/task-cli.js",
+    "task-cli": "npx tsc --build --clean && npx tsc && node ./dist/task-tracker-cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
