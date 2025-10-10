@@ -17,7 +17,7 @@ export class AddCommandRunner implements ICommandRunner {
         const newTask = this.getNewTask(newId, request);
         tasksJson.push(newTask);
         this.taskManager.updateTasksJson();
-        console.log('ARRIVED HERE IN ADD TASK')
+        console.log('TASK ADDED TO ./task/tasks.json');
     }
 
     private getNewId(tasksJson: TaskJson[]): number {
