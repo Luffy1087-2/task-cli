@@ -17,6 +17,7 @@ export class EditCommandRunner implements ICommandRunner {
         if (!taskById) throw new RangeError('id is not valid or existing');
         this.editTask(taskById, request);
         this.taskManager.updateTasksJson();
+        console.log(`Task name for Id ${request.id} is changed`);
     }
 
     private editTask(task: TaskJson, request: EditCommandRequest) {

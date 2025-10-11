@@ -17,6 +17,7 @@ export class ChangeStatusCommandRunner implements ICommandRunner {
         if (!taskById) throw new TypeError('task is not found');
         this.updateTask(taskById, request);
         this.taskManager.updateTasksJson();
+        console.log(`Status ${TaskStatus[request.statusCode].toString()} changed for task Id ${request.id}`);
     }
 
     private updateTask(taskById: TaskJson, request: ChangeStatusCommandRequest) {

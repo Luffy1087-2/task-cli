@@ -17,7 +17,7 @@ export class AddCommandRunner implements ICommandRunner {
         const newTask = this.getNewTask(newId, request);
         tasksJson.push(newTask);
         this.taskManager.updateTasksJson();
-        console.log('TASK ADDED TO ./task/tasks.json');
+        console.log('New task is added to ./task/tasks.json');
     }
 
     private getNewId(tasksJson: TaskJson[]): number {
@@ -34,7 +34,6 @@ export class AddCommandRunner implements ICommandRunner {
             Name: request.name.replace(/\^/g, ''),
             CreatedAt: date,
             UpdatedAt: date,
-            Description: '',
             StatusCode: TaskStatus.TODO
         };
     }

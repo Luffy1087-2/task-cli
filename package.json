@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "compile:watch": "npx tsc -w",
-    "task-tracker-cli": "npx tsc --build --clean && npx tsc && node ./dist/task-tracker-cli.js",
+    "task-tracker-cli": "npx tsc --build --clean && npx tsc && node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

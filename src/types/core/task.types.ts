@@ -7,7 +7,6 @@ export enum TaskStatus {
 export type TaskJson = {
     Id: number,
     Name: string,
-    Description: string,
     StatusCode: TaskStatus
     CreatedAt: number,
     UpdatedAt: number

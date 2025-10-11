@@ -14,7 +14,8 @@ export class ListCommandRunner implements ICommandRunner {
         const tasksJson = this.taskManager.readOrCreate();
         if (request.statusCode === undefined) return void tasksJson.forEach(t => this.printTask(t));
         const filteredTasks = tasksJson.filter(t => t.StatusCode === request.statusCode);
-        filteredTasks.forEach(t => this.printTask(t));
+        if (filteredTasks.length) filteredTasks.forEach(t => this.printTask(t));
+        else console.log('No tasks match');
     }
 
     private printTask(task: TaskJson) {
