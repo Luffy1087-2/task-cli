@@ -12,20 +12,19 @@ export class ListCommandRunner implements ICommandRunner {
 
     run(request: ListCommandRequest): void {
         const tasksJson = this.taskManager.readOrCreate();
-        if (request.statusCode === undefined) return void tasksJson.forEach(t => this.printTask(t));
+        if (request.statusCode === undefined) return void tasksJson.forEach((t: TaskJson, i: number) => this.printTask(t, i));
         const filteredTasks = tasksJson.filter(t => t.StatusCode === request.statusCode);
-        if (filteredTasks.length) filteredTasks.forEach(t => this.printTask(t));
+        if (filteredTasks.length) filteredTasks.forEach((t: TaskJson, i: number) => this.printTask(t, i));
         else console.log('No tasks match');
     }
 
-    private printTask(task: TaskJson) {
-        console.log('-');
+    private printTask(task: TaskJson, index: number) {
+        if (index !== 0) console.log('\n- - - - - - - - - - - - - -\n');
         console.log(`Id: ${task.Id}`);
         console.log(`Name: ${task.Name}`);
         console.log(`Status: ${TaskStatus[task.StatusCode]} - ${task.StatusCode}`);
         console.log(`Created At: ${this.getDateToTimestampByLocale(task.CreatedAt)}`);
         console.log(`Updated At: ${this.getDateToTimestampByLocale(task.UpdatedAt)}`);
-        console.log('-');
     }
 
     private getDateToTimestampByLocale(timestamp: number, culture: Intl.LocalesArgument = 'it-IT') {
