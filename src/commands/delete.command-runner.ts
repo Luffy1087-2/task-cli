@@ -10,10 +10,10 @@ export class DeleteCommandRunner implements ICommandRunner {
     }
 
     run(request: DeleteCommandRequest): void {
-        if (isNaN(request.id)) throw new TypeError('id is not a valid number');
+        if (isNaN(request.id)) throw new TypeError('Id is not a valid number');
         const tasksJson = this.taskManager.readOrCreate();
         const indexToDelete = this.taskManager.getTaskIndexById(request.id);
-        if (indexToDelete === -1) throw new RangeError('id not found');
+        if (indexToDelete === -1) throw new RangeError('Task Id not found');
         tasksJson.splice(indexToDelete, 1);
         this.taskManager.updateTasksJson();
         console.log(`Task Id ${request.id} is deleted`);

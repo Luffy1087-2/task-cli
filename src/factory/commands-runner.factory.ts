@@ -27,11 +27,15 @@ export class CommandsRunnerFactory implements ICommandsRunnerFactory {
     }
     
     run(): void {
-        const params = process.argv.slice(2);
-        this.checkParams(params);
-        const [ command, ] = params;
-        const [ commandRunner, request ] = this.createCommandRunner(command ?? '');
-        commandRunner.run(request);
+        try {
+            const params = process.argv.slice(2);
+            this.checkParams(params);
+            const [ command, ] = params;
+            const [ commandRunner, request ] = this.createCommandRunner(command ?? '');
+            commandRunner.run(request);
+        } catch(e: any) {
+            console.log(e.message);
+        }
     }
 
     private createCommandRunner(command: string): [ICommandRunner, CommandRequest] {
@@ -48,14 +52,14 @@ export class CommandsRunnerFactory implements ICommandsRunnerFactory {
             case AllowedCommands.LIST.toString():
                 return this.createListCommandRunner(params);
         }
-        throw new RangeError('generic error');
+        throw new RangeError('Generic error');
     }
 
     private checkParams(params: string[]) {
-        if (!params.length) throw Error('no parameter found');
+        if (!params.length) throw TypeError('No parameter found');
         const [command, ] = params;
         const allowedCommands = Object.values(AllowedCommands);
-        if (allowedCommands.indexOf(command as AllowedCommands) === -1) throw new RangeError(`command "${command}" is not recognized`);
+        if (allowedCommands.indexOf(command as AllowedCommands) === -1) throw new RangeError(`Command "${command}" is not recognized`);
     }
     
     createListCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {

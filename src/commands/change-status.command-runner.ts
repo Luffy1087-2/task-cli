@@ -11,10 +11,10 @@ export class ChangeStatusCommandRunner implements ICommandRunner {
     }
     
     run(request: ChangeStatusCommandRequest): void {
-        if (isNaN(request.id)) throw new TypeError('id is not a number');
+        if (isNaN(request.id)) throw new TypeError('Id is not a number');
         if (!TaskStatus[request.statusCode]) throw new TypeError('status is not correct');
         const taskById = this.taskManager.getTaskById(request.id);
-        if (!taskById) throw new TypeError('task is not found');
+        if (!taskById) throw new TypeError('Task is not found');
         this.updateTask(taskById, request);
         this.taskManager.updateTasksJson();
         console.log(`Status ${TaskStatus[request.statusCode].toString()} changed for task Id ${request.id}`);
