@@ -57,7 +57,7 @@ export class CommandsRunnerFactory implements ICommandsRunnerFactory {
 
     private checkParams(params: string[]) {
         if (!params.length) throw TypeError('No parameter found');
-        const [command, ] = params;
+        const [ command ] = params;
         const allowedCommands = Object.values(AllowedCommands);
         if (allowedCommands.indexOf(command as AllowedCommands) === -1) throw new RangeError(`Command "${command}" is not recognized`);
     }
