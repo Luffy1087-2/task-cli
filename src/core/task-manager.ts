@@ -31,7 +31,7 @@ export class TaskManager {
         fs.writeFileSync(taskJsonFilePath, jsonString);
     }
 
-    getTaskIndexId(id: number) {
+    getTaskIndexById(id: number) {
         const tasks = this.getTasksJson();
         const index = tasks.findIndex(t => t.Id === id);
         return index;
