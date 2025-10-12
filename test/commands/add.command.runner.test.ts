@@ -1,31 +1,25 @@
 import {describe, it, beforeEach, before, after} from 'node:test';
 import assert from 'node:assert';
-import path from 'node:path';
-import fs from 'fs';
 import type { ICommandRunner } from '../../src/types/commands/command-runner.types.js';
 import type { AddCommandRequest } from '../../src/types/commands/command.requests.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
-import { TaskStatus, type TaskJson } from '../../src/types/core/task.types.js';
+import { TaskStatus } from '../../src/types/core/task.types.js';
+import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
 
 describe('add.command.runner', {}, () => {
-    const newTasksJsonPath = path.normalize(`${process.cwd()}/test/task`);
-    const newTasksJsonFilePath = path.normalize(`${newTasksJsonPath}/tasks.json`);
-    function readTasks(): TaskJson[] {
-        return (sut as any)?.taskManager?.readOrCreate();
-    }
     let sut: ICommandRunner;
 
     before(() => {
-        if (fs.existsSync(newTasksJsonFilePath)) fs.unlinkSync(newTasksJsonFilePath);
+        TaskManagerSuiteUtils.DeleteTaskJsonFile();
     });
 
     after(() => {
-        if (fs.existsSync(newTasksJsonFilePath)) fs.unlinkSync(newTasksJsonFilePath);
+        TaskManagerSuiteUtils.DeleteTaskJsonFile();
     });
 
     beforeEach(() => {
         sut = new AddCommandRunner();
-        (sut as any).taskManager.basePath = newTasksJsonPath;
+        TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
     });
 
     it('should throw excetion when request.name is not valid', () => {
@@ -44,7 +38,7 @@ describe('add.command.runner', {}, () => {
         sut.run(request);
 
         // Assert
-        const tasks = readTasks();
+        const tasks = TaskManagerSuiteUtils.ReadTestTasksJson(sut as any);
         assert.ok(tasks.length === 1, 'length should be one');
         assert.ok(tasks[0]?.Id === 1, 'Id should be one');
         assert.ok(tasks[0]?.Name === "MyTestTask", 'Name should be MyTestTask');
@@ -59,7 +53,7 @@ describe('add.command.runner', {}, () => {
         sut.run(request);
 
         // Assert
-        const tasks = readTasks();
+        const tasks = TaskManagerSuiteUtils.ReadTestTasksJson(sut as any);
         assert.ok(tasks.length === 2, 'length should be two');
         assert.ok(tasks[1]?.Id === 2, 'Id should be two');
         assert.ok(tasks[1]?.Name === "My second task", 'Name should be "My second task"');

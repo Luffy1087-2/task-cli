@@ -1,33 +1,27 @@
-import {describe, it, beforeEach, before, after} from 'node:test';
+import {describe, it, before, after} from 'node:test';
 import assert from 'node:assert';
-import path from 'node:path';
-import fs from 'fs';
 import type { ICommandRunner } from '../../src/types/commands/command-runner.types.js';
 import type { AddCommandRequest, ChangeStatusCommandRequest } from '../../src/types/commands/command.requests.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
-import { TaskStatus, type TaskJson } from '../../src/types/core/task.types.js';
+import { TaskStatus } from '../../src/types/core/task.types.js';
 import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
+import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
 
 describe('change-status.command.runner', {}, () => {
-    const newTasksJsonPath = path.normalize(`${process.cwd()}/test/task`);
-    const newTasksJsonFilePath = path.normalize(`${newTasksJsonPath}/tasks.json`);
-    function readTasks(): TaskJson[] {
-        return (sut as any)?.taskManager?.readOrCreate();
-    }
     let sut: ICommandRunner;
 
     before(() => {
-        if (fs.existsSync(newTasksJsonFilePath)) fs.unlinkSync(newTasksJsonFilePath);
+        TaskManagerSuiteUtils.DeleteTaskJsonFile();
         const addCommandRunner = new AddCommandRunner();
-        (addCommandRunner as any).taskManager.basePath = newTasksJsonPath;
         sut = new ChangeStatusCommandRunner();
-        (sut as any).taskManager.basePath = newTasksJsonPath;
+        TaskManagerSuiteUtils.MockTaskManagerBasePath(addCommandRunner as any);
+        TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
         const addCommandRequest: AddCommandRequest = {name: 'Task Test'};
         addCommandRunner.run(addCommandRequest);
     });
 
     after(() => {
-        if (fs.existsSync(newTasksJsonFilePath)) fs.unlinkSync(newTasksJsonFilePath);
+        TaskManagerSuiteUtils.DeleteTaskJsonFile();
     });
 
     it('should throw excetion when request.id or request.statusCode are not valid', () => {
@@ -52,7 +46,7 @@ describe('change-status.command.runner', {}, () => {
 
     it('should change status code from TODO to PROGRESS', () => {
         //Assert
-        const tasks = readTasks();
+        const tasks = TaskManagerSuiteUtils.ReadTestTasksJson(sut as any);
         assert.ok(tasks.length === 1);
         assert.ok(tasks[0]?.Id === 1);
         assert.ok(tasks[0]?.StatusCode === TaskStatus.TODO);
