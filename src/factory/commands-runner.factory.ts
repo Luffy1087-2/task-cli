@@ -62,7 +62,7 @@ export class CommandsRunnerFactory implements ICommandsRunnerFactory {
         if (allowedCommands.indexOf(command as AllowedCommands) === -1) throw new RangeError(`Command "${command}" is not recognized`);
     }
     
-    createListCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
+    private createListCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
         const [ status ] = params;
         const statusCode = status ? Number(status) : undefined;
         const request: ListCommandRequest = { statusCode: statusCode };
