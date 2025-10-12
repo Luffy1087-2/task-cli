@@ -72,8 +72,8 @@ export class CommandsRunnerFactory implements ICommandsRunnerFactory {
     }
     
     private createAddCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
-        const [ name, description ] = params;
-        const request: AddCommandRequest = {name: name ?? '', description}; 
+        const [ name ] = params;
+        const request: AddCommandRequest = {name: name ?? ''}; 
         const commandRunner = new AddCommandRunner();
 
         return [ commandRunner, request ];

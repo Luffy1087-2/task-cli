@@ -2,7 +2,6 @@ import type { TaskStatus } from "../core/task.types.js";
 
 export type AddCommandRequest = {
     name: string;
-    description?: string | undefined;
 };
 
 export type EditCommandRequest = {
