@@ -9,6 +9,7 @@ nodejs (version >= 22.0.0)
 - git clone [git@github.com:Luffy1087-2/task-cli.git](git@github.com:Luffy1087-2/task-cli.git)
 - go to task-cli directory (cd task-cli)
 - npm i
+- npm link
 
 ## Allowed commands
 - add
@@ -22,14 +23,14 @@ The commands should run from the root directory
 ### Adding a task
 The **add** command accepts the name of the task as parameter
 
-`node task-tracker-cli add \"My task\"`
+`task-cli add \"My task\"`
 
 **Note**: If you want to include spaces in the task name, you should enclose the name in double quotes escaped with \\"
 
 ### Editing a task name
 The **edit** command accepts Id of the task and the new name of the task as parameters
 
-`node task-tracker-cli edit 1 \"My task number one\"`
+`task-cli edit 1 \"My task number one\"`
 
 ### Change the status of a task
 
@@ -41,20 +42,20 @@ A task status can be one of the following codes:
 The **changeStatus** command accepts the Id of the task and the new status code as parameters
 
 Example chaging the task code to **3** (**DONE**) for the task with the Id **1**
-`node task-tracker-cli edit 1 3`
+`task-cli edit 1 3`
 
 ### Deleting a task
 The **delete** command accepts Id of the task as parameter
 
-`node task-tracker-cli delete 1`
+`task-cli delete 1`
 
 ### List tasks
 
 #### List all tasks
-`node task-tracker-cli list`
+`task-cli list`
 
 #### List tasks filtered by status code
 
 In this example, in progess tasks are listed:
 
-`node task-tracker-cli list 1`
+`task-cli list 1`
