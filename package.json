@@ -10,7 +10,7 @@
   "scripts": {
     "compile:watch": "npx tsc -w",
     "task-cli": "npx tsc --build --clean && npx tsc && node ./dist/index.js",
-    "test": "tsc && node --test dist/test/**/*.js"
+    "test": "tsc && node --test dist/test/**/*.test.js"
   },
   "keywords": [
     "task-cli",
