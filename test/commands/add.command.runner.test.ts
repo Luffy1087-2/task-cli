@@ -29,10 +29,10 @@ describe('add.command.runner', {}, () => {
     });
 
     it('should throw excetion when request.name is not valid', () => {
-        // Assert
+        // Arrange
         const request: AddCommandRequest = {name: ''};
 
-        // Act
+        // Assert
         assert.throws(() => sut.run(request), TypeError);
     });
 
