@@ -1,3 +1,3 @@
 export interface ICommandsRunnerFactory {
-    run(): void;
+  run(): void;
 }

@@ -4,24 +4,24 @@ import type { ICommandRunner } from "../types/commands/command-runner.types.js";
 import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
 
 export class ChangeStatusCommandRunner implements ICommandRunner {
-    private readonly taskManager;
+  private readonly taskManager;
 
-    constructor() {
-        this.taskManager = new TaskManager();
-    }
-    
-    run(request: ChangeStatusCommandRequest): void {
-        if (isNaN(request.id)) throw new TypeError('Id is not a number');
-        if (!TaskStatus[request.statusCode]) throw new TypeError('status is not correct');
-        const taskById = this.taskManager.getTaskById(request.id);
-        if (!taskById) throw new TypeError('Task is not found');
-        this.updateTask(taskById, request);
-        this.taskManager.updateTasksJson();
-        console.log(`Status ${TaskStatus[request.statusCode].toString()} changed for task Id ${request.id}`);
-    }
+  constructor() {
+    this.taskManager = new TaskManager();
+  }
 
-    private updateTask(taskById: TaskJson, request: ChangeStatusCommandRequest) {
-        taskById.StatusCode = request.statusCode;
-        taskById.UpdatedAt = Date.now();
-    }
+  run(request: ChangeStatusCommandRequest): void {
+    if (isNaN(request.id)) throw new TypeError('Id is not a number');
+    if (!TaskStatus[request.statusCode]) throw new TypeError('status is not correct');
+    const taskById = this.taskManager.getTaskById(request.id);
+    if (!taskById) throw new TypeError('Task is not found');
+    this.updateTask(taskById, request);
+    this.taskManager.updateTasksJson();
+    console.log(`Status ${TaskStatus[request.statusCode].toString()} changed for task Id ${request.id}`);
+  }
+
+  private updateTask(taskById: TaskJson, request: ChangeStatusCommandRequest) {
+    taskById.StatusCode = request.statusCode;
+    taskById.UpdatedAt = Date.now();
+  }
 }
