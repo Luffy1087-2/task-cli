@@ -6,7 +6,7 @@ import { ChangeStatusCommandRunner } from "../commands/change-status.command-run
 import { ListCommandRunner } from "../commands/list.command-runner.js";
 
 // Types 
-import type { ICommandRunner } from "../types/commands/command-runner.types.js";
+import type { CommandRunnerInterface } from "../types/commands/command-runner.interface.js";
 import type { CommandsRunnerFactoryInterface as CommandsRunnerFactoryInterface } from "../types/factory/command-runner.factory.interface.js";
 import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest, ListCommandRequest, ChangeStatusCommandRequest } from "../types/commands/command.requests.js";
 
@@ -38,7 +38,7 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     }
   }
 
-  private createCommandRunner(command: string): [ICommandRunner, CommandRequest] {
+  private createCommandRunner(command: string): [CommandRunnerInterface, CommandRequest] {
     const params = this.params.slice(1);
     switch (command) {
       case AllowedCommands.ADD.toString():
@@ -62,7 +62,7 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     if (allowedCommands.indexOf(command as AllowedCommands) === -1) throw new RangeError(`Command "${command}" is not recognized`);
   }
   
-  private createListCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
+  private createListCommandRunner(params: string[]): [CommandRunnerInterface, CommandRequest] {
     const [ status ] = params;
     const statusCode = status ? Number(status) : undefined;
     const request: ListCommandRequest = { statusCode: statusCode };
@@ -71,7 +71,7 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     return [ commandRunner, request ];
   }
   
-  private createAddCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
+  private createAddCommandRunner(params: string[]): [CommandRunnerInterface, CommandRequest] {
     const [ name ] = params;
     const request: AddCommandRequest = {name: name ?? ''}; 
     const commandRunner = new AddCommandRunner();
@@ -79,7 +79,7 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     return [ commandRunner, request ];
   }
 
-  private createEditCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
+  private createEditCommandRunner(params: string[]): [CommandRunnerInterface, CommandRequest] {
     const [ id, name ] = params;
     const request: EditCommandRequest = {id: Number(id), name: name ?? ''};
     const commandRunner = new EditCommandRunner();
@@ -87,7 +87,7 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     return [ commandRunner, request ];
   }
 
-  private createChageStatusCommandRunner(params: string[]): [ ICommandRunner, CommandRequest ] {
+  private createChageStatusCommandRunner(params: string[]): [ CommandRunnerInterface, CommandRequest ] {
     const [ id, statusCode ] = params;
     const request: ChangeStatusCommandRequest = {id: Number(id), statusCode: Number(statusCode)};
     const commandRunner = new ChangeStatusCommandRunner();
@@ -95,7 +95,7 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     return [ commandRunner, request ];
   }
 
-  private createDeleteCommandRunner(params: string[]): [ICommandRunner, CommandRequest] {
+  private createDeleteCommandRunner(params: string[]): [CommandRunnerInterface, CommandRequest] {
     const [ id ] = params;
     const request: DeleteCommandRequest = {id: Number(id)};
     const commandRunner = new DeleteCommandRunner();

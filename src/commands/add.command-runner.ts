@@ -1,9 +1,9 @@
 import { TaskManager } from "../core/task-manager.js";
-import type { ICommandRunner } from "../types/commands/command-runner.types.js";
+import type { CommandRunnerInterface } from "../types/commands/command-runner.interface.js";
 import type { AddCommandRequest } from "../types/commands/command.requests.js";
 import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
 
-export class AddCommandRunner implements ICommandRunner {
+export class AddCommandRunner implements CommandRunnerInterface {
   private readonly taskManager: TaskManager;
   
   constructor() {

@@ -1,6 +1,6 @@
 import {describe, it, before, after} from 'node:test';
 import assert from 'node:assert';
-import type { ICommandRunner } from '../../src/types/commands/command-runner.types.js';
+import type { CommandRunnerInterface } from '../../src/types/commands/command-runner.interface.js';
 import type { AddCommandRequest, ChangeStatusCommandRequest } from '../../src/types/commands/command.requests.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
 import { TaskStatus } from '../../src/types/core/task.types.js';
@@ -8,7 +8,7 @@ import { ChangeStatusCommandRunner } from '../../src/commands/change-status.comm
 import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
 
 describe('change-status.command.runner', {}, () => {
-  let sut: ICommandRunner;
+  let sut: CommandRunnerInterface;
 
   before(() => {
     TaskManagerSuiteUtils.DeleteTaskJsonFile();

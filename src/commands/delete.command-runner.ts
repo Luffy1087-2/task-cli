@@ -1,8 +1,8 @@
-import type { ICommandRunner } from "../types/commands/command-runner.types.js";
+import type { CommandRunnerInterface } from "../types/commands/command-runner.interface.js";
 import type { DeleteCommandRequest } from "../types/commands/command.requests.js";
 import { TaskManager } from "../core/task-manager.js";
 
-export class DeleteCommandRunner implements ICommandRunner {
+export class DeleteCommandRunner implements CommandRunnerInterface {
   private readonly taskManager: TaskManager;
   
   constructor() {
