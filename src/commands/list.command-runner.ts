@@ -11,7 +11,9 @@ export class ListCommandRunner implements ICommandRunner {
     }
 
     run(request: ListCommandRequest): void {
+        if (request.statusCode && !TaskStatus[request.statusCode]) throw new TypeError('StatusCode is not recognized');
         const tasksJson = this.taskManager.readOrCreate();
+        if (!tasksJson.length) return void console.log('Tasks are empty');
         if (request.statusCode === undefined) return void tasksJson.forEach((t: TaskJson, i: number) => this.printTask(t, i));
         const filteredTasks = tasksJson.filter(t => t.StatusCode === request.statusCode);
         if (filteredTasks.length) filteredTasks.forEach((t: TaskJson, i: number) => this.printTask(t, i));
