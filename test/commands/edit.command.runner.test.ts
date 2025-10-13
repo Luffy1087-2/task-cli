@@ -1,7 +1,7 @@
 import {describe, it, before, after} from 'node:test';
 import assert from 'node:assert';
 import type { CommandRunnerInterface } from '../../src/types/commands/command-runner.interface.js';
-import type { AddCommandRequest, ChangeStatusCommandRequest, EditCommandRequest } from '../../src/types/commands/command.requests.js';
+import type { AddCommandRequest, ChangeStatusCommandRequest, EditCommandRequest } from '../../src/types/commands/command.requests.types.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
 import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
 import { EditCommandRunner } from '../../src/commands/edit.command-runner.js';

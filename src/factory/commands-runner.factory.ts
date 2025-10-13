@@ -8,7 +8,7 @@ import { ListCommandRunner } from "../commands/list.command-runner.js";
 // Types 
 import type { CommandRunnerInterface } from "../types/commands/command-runner.interface.js";
 import type { CommandsRunnerFactoryInterface as CommandsRunnerFactoryInterface } from "../types/factory/command-runner.factory.interface.js";
-import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest, ListCommandRequest, ChangeStatusCommandRequest } from "../types/commands/command.requests.js";
+import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest, ListCommandRequest, ChangeStatusCommandRequest } from "../types/commands/command.requests.types.js";
 
 
 enum AllowedCommands {

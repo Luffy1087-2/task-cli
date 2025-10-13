@@ -1,5 +1,5 @@
 import { TaskManager } from "../core/task-manager.js";
-import type { ChangeStatusCommandRequest } from "../types/commands/command.requests.js";
+import type { ChangeStatusCommandRequest } from "../types/commands/command.requests.types.js";
 import type { CommandRunnerInterface } from "../types/commands/command-runner.interface.js";
 import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
 

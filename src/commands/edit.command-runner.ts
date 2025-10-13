@@ -1,5 +1,5 @@
 import type { CommandRunnerInterface } from "../types/commands/command-runner.interface.js";
-import type { EditCommandRequest } from "../types/commands/command.requests.js";
+import type { EditCommandRequest } from "../types/commands/command.requests.types.js";
 import { TaskManager } from "../core/task-manager.js";
 import type { TaskJson } from "../types/core/task.types.js";
 
