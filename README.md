@@ -43,7 +43,7 @@ A task status can be one of the following codes:
 The **changeStatus** command accepts the Id of the task and the new status code as parameters
 
 Example chaging the task code to **3** (**DONE**) for the task with the Id **1**
-`task-cli edit 1 3`
+`task-cli changeStatus 1 3`
 
 ### Deleting a task
 The **delete** command accepts Id of the task as parameter
