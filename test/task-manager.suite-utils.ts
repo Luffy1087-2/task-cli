@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from "path";
 import type { TaskJson } from '../src/types/core/task.types.js';
-
 export default class TaskManagerSuiteUtils {
     private static TestTaskJsonBasePath: string = path.normalize(`${process.cwd()}/test/task`);
     private static TestTaskJsonFilePath: string = path.normalize(`${TaskManagerSuiteUtils.TestTaskJsonBasePath}/tasks.json`);

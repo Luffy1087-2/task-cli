@@ -7,13 +7,13 @@ import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
 import { TaskStatus } from '../../src/types/core/task.types.js';
 import { ListCommandRunner } from '../../src/commands/list.command-runner.js';
 import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
+import customStub from '../custom-stub.js';
 
 describe('list.command.runner', {}, () => {
     let addCommandRunner: ICommandRunner;
     let changeStatusCodeRunner: ICommandRunner;
     let sut: ICommandRunner;
     let output: string[] = [];
-    const originalWriteStream = console.log;
 
     before(() => {
         TaskManagerSuiteUtils.DeleteTaskJsonFile();
@@ -28,18 +28,15 @@ describe('list.command.runner', {}, () => {
     beforeEach(() => {
         TaskManagerSuiteUtils.DeleteTaskJsonFile();
         output = [];
-        console.log = (outputString) => {
-            output.push(outputString);
-            return true;
-        }
+        customStub.stubMethod(console, 'log', (outputString) => output.push(outputString));
     });
 
     afterEach(() => {
-        console.log = originalWriteStream;
+        customStub.restore(console);
     });
 
     after(() => {
-        console.log = originalWriteStream;
+        customStub.restoreAll();
         TaskManagerSuiteUtils.DeleteTaskJsonFile();
     });
 
