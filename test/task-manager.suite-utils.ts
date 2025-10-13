@@ -26,6 +26,7 @@ export default class TaskManagerSuiteUtils {
     }
     
     public static ReadTestTasksJson(sut: {taskManager: { readOrCreate: () => TaskJson[]}}): TaskJson[] {
+        if (!sut) throw TypeError('sut is not a valid command object');
         if (!sut.taskManager) throw new TypeError('taskManager is not existing');
         if (!sut.taskManager.readOrCreate) throw new TypeError('readOrCreate is not existing');
         if (typeof sut.taskManager.readOrCreate !== 'function') throw new TypeError('readOrCreate is not a function');
