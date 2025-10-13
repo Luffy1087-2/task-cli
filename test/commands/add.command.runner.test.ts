@@ -19,7 +19,7 @@ describe('add.command.runner', {}, () => {
 
     beforeEach(() => {
         sut = new AddCommandRunner();
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(sut as any);
     });
 
     it('should throw excetion when request.name is not valid', () => {

@@ -14,8 +14,8 @@ describe('change-status.command.runner', {}, () => {
         TaskManagerSuiteUtils.DeleteTaskJsonFile();
         const addCommandRunner = new AddCommandRunner();
         sut = new ChangeStatusCommandRunner();
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(addCommandRunner as any);
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(addCommandRunner as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(sut as any);
         const addCommandRequest: AddCommandRequest = {name: 'Task Test'};
         addCommandRunner.run(addCommandRequest);
     });

@@ -5,11 +5,17 @@ export default class TaskManagerSuiteUtils {
     private static TestTaskJsonBasePath: string = path.normalize(`${process.cwd()}/test/task`);
     private static TestTaskJsonFilePath: string = path.normalize(`${TaskManagerSuiteUtils.TestTaskJsonBasePath}/tasks.json`);
 
-    public static MockTaskManagerBasePath(sut: { taskManager: { basePath: string }}) {
-        if (!sut.taskManager) throw new TypeError('taskManager is not existing');
-        if (!sut.taskManager.basePath) throw new TypeError('basePath is not existing');
+    public static MockCommandTaskManagerBasePath(sut: { taskManager: { basePath: string }}) {
+        if (!sut) throw new TypeError('sut is not a valid command object');
+        
+        TaskManagerSuiteUtils.MockTaskManagerBasePath(sut.taskManager);
+    }
 
-        sut.taskManager.basePath = TaskManagerSuiteUtils.TestTaskJsonBasePath;
+    public static MockTaskManagerBasePath(taskManager: { basePath: string}) {
+        if (!taskManager) throw new TypeError('taskManager is not existing');
+        if (!taskManager.basePath) throw new TypeError('basePath is not existing');
+
+        taskManager.basePath = TaskManagerSuiteUtils.TestTaskJsonBasePath;
     }
 
     public static DeleteTaskJsonFile() {

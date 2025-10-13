@@ -15,8 +15,8 @@ describe('edit.command.runner', {}, () => {
         TaskManagerSuiteUtils.DeleteTaskJsonFile();
         const addCommandRunner = new AddCommandRunner();
         sut = new EditCommandRunner();
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(addCommandRunner as any);
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(addCommandRunner as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(sut as any);
         const addCommandRequest: AddCommandRequest = {name: defaultTaskName};
         addCommandRunner.run(addCommandRequest);
     });

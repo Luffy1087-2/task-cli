@@ -20,9 +20,9 @@ describe('list.command.runner', {}, () => {
         addCommandRunner = new AddCommandRunner();
         changeStatusCodeRunner = new ChangeStatusCommandRunner();
         sut = new ListCommandRunner();
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(addCommandRunner as any);
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(changeStatusCodeRunner as any);
-        TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(addCommandRunner as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(changeStatusCodeRunner as any);
+        TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(sut as any);
     });
 
     beforeEach(() => {
