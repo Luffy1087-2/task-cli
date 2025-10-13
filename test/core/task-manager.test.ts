@@ -1,11 +1,12 @@
 import { after, afterEach, before, beforeEach, describe, it } from "node:test";
-import { TaskStatus, type ITaskManager, type TaskJson } from "../../src/types/core/task.types.js";
+import { TaskStatus, type TaskJson } from "../../src/types/core/task.types.js";
+import { type TaskManagerInterface } from "../../src/types/core/taskManager.interface.js";
 import { TaskManager } from "../../src/core/task-manager.js";
 import TaskManagerSuiteUtils from "../task-manager.suite-utils.js";
 import assert from "node:assert";
 
 describe('task-manager', () => {
-  let sut: ITaskManager;
+  let sut: TaskManagerInterface;
 
   function getTask(id: number, name: string): TaskJson {
     return {
