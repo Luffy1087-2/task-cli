@@ -11,3 +11,10 @@ export type TaskJson = {
     CreatedAt: number,
     UpdatedAt: number
 };
+
+export interface ITaskManager {
+    readOrCreate(): TaskJson[];
+    updateTasksJson(): void;
+    getTaskIndexById(id: number): number;
+    getTaskById(id: number): TaskJson | undefined;
+};
