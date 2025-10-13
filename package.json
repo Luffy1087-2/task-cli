@@ -10,7 +10,7 @@
   "scripts": {
     "compile:watch": "npx tsc -w",
     "compile:rebuild": "tsc --build --clean && tsc",
-    "task-cli": "node ./dist/index.js",
+    "task-cli": "node ./dist/src/index.js",
     "test": "npm run compile:rebuild && node --test --test-concurrency=1 dist/test/**/*.test.js"
   },
   "keywords": [
