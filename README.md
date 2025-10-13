@@ -19,7 +19,7 @@ nodejs (version >= 22.0.0)
 - delete
 - list
 
-The commands should run from the root directory
+## The commands should run from the root directory
 
 ### Adding a task
 The **add** command accepts the name of the task as parameter
