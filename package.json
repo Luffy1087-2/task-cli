@@ -9,8 +9,9 @@
   },
   "scripts": {
     "compile:watch": "npx tsc -w",
-    "task-cli": "npx tsc --build --clean && npx tsc && node ./dist/index.js",
-    "test": "tsc && node --test --test-concurrency=1 dist/test/**/*.test.js"
+    "compile:rebuild": "tsc --build --clean && tsc",
+    "task-cli": "node ./dist/index.js",
+    "test": "npm run compile:rebuild && node --test --test-concurrency=1 dist/test/**/*.test.js"
   },
   "keywords": [
     "task-cli",
