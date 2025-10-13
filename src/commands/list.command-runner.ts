@@ -1,18 +1,19 @@
-import { TaskManager } from "../core/task-manager.js";
+import { TasksManager } from "../core/task-manager.js";
 import type { ListCommandRequest } from "../types/commands/command.requests.types.js";
-import type { CommandRunnerInterface } from "../types/commands/command-runner.interface.js";
+import type { CommandRunner } from "../types/commands/command-runner.interface.js";
 import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
+import type { TasksJsonManager } from "../types/core/taskManager.interface.js";
 
-export class ListCommandRunner implements CommandRunnerInterface {
-  private readonly taskManager;
+export class ListCommandRunner implements CommandRunner {
+  private readonly tasksManager: TasksJsonManager;
 
   constructor() {
-    this.taskManager = new TaskManager();
+    this.tasksManager = new TasksManager();
   }
 
   run(request: ListCommandRequest): void {
     if (request.statusCode && !TaskStatus[request.statusCode]) throw new TypeError('StatusCode is not recognized');
-    const tasksJson = this.taskManager.readOrCreate();
+    const tasksJson = this.tasksManager.readOrCreate();
     if (!tasksJson.length) return void console.log('Tasks are empty');
     if (request.statusCode === undefined) return void tasksJson.forEach((t: TaskJson, i: number) => this.printTask(t, i));
     const filteredTasks = tasksJson.filter(t => t.StatusCode === request.statusCode);

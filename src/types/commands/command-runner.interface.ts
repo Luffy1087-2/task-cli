@@ -1,5 +1,5 @@
 import type { CommandRequest } from "./command.requests.types.js";
 
-export interface CommandRunnerInterface {
+export interface CommandRunner {
   run(request: CommandRequest): void;
 };

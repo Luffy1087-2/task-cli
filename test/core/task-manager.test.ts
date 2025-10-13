@@ -1,12 +1,12 @@
 import { after, afterEach, before, beforeEach, describe, it } from "node:test";
 import { TaskStatus, type TaskJson } from "../../src/types/core/task.types.js";
-import { type TaskManagerInterface } from "../../src/types/core/taskManager.interface.js";
-import { TaskManager } from "../../src/core/task-manager.js";
+import { type TasksJsonManager } from "../../src/types/core/taskManager.interface.js";
+import { TasksManager } from "../../src/core/task-manager.js";
 import TaskManagerSuiteUtils from "../task-manager.suite-utils.js";
 import assert from "node:assert";
 
 describe('task-manager', () => {
-  let sut: TaskManagerInterface;
+  let sut: TasksJsonManager;
 
   function getTask(id: number, name: string): TaskJson {
     return {
@@ -20,7 +20,7 @@ describe('task-manager', () => {
 
   before(() => {
     TaskManagerSuiteUtils.DeleteTaskJsonFile();
-    sut = new TaskManager();
+    sut = new TasksManager();
     TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
   });
 

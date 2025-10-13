@@ -1,6 +1,6 @@
 import {describe, it, before, after, beforeEach, afterEach} from 'node:test';
 import assert from 'node:assert';
-import type { CommandRunnerInterface } from '../../src/types/commands/command-runner.interface.js';
+import type { CommandRunner } from '../../src/types/commands/command-runner.interface.js';
 import type { ListCommandRequest } from '../../src/types/commands/command.requests.types.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
 import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
@@ -10,9 +10,9 @@ import { ChangeStatusCommandRunner } from '../../src/commands/change-status.comm
 import customStub from '../custom-stub.js';
 
 describe('list.command.runner', {}, () => {
-  let addCommandRunner: CommandRunnerInterface;
-  let changeStatusCodeRunner: CommandRunnerInterface;
-  let sut: CommandRunnerInterface;
+  let addCommandRunner: CommandRunner;
+  let changeStatusCodeRunner: CommandRunner;
+  let sut: CommandRunner;
   let output: string[] = [];
 
   before(() => {

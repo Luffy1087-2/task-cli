@@ -5,17 +5,17 @@ export default class TaskManagerSuiteUtils {
   private static TestTaskJsonBasePath: string = path.normalize(`${process.cwd()}/test/task`);
   private static TestTaskJsonFilePath: string = path.normalize(`${TaskManagerSuiteUtils.TestTaskJsonBasePath}/tasks.json`);
 
-  public static MockCommandTaskManagerBasePath(sut: { taskManager: { basePath: string }}) {
+  public static MockCommandTaskManagerBasePath(sut: { tasksManager: { basePath: string }}) {
     if (!sut) throw new TypeError('sut is not a valid command object');
     
-    TaskManagerSuiteUtils.MockTaskManagerBasePath(sut.taskManager);
+    TaskManagerSuiteUtils.MockTaskManagerBasePath(sut.tasksManager);
   }
 
-  public static MockTaskManagerBasePath(taskManager: { basePath: string}) {
-    if (!taskManager) throw new TypeError('taskManager is not existing');
-    if (!taskManager.basePath) throw new TypeError('basePath is not existing');
+  public static MockTaskManagerBasePath(tasksManager: { basePath: string}) {
+    if (!tasksManager) throw new TypeError('tasksManager is not existing');
+    if (!tasksManager.basePath) throw new TypeError('basePath is not existing');
 
-    taskManager.basePath = TaskManagerSuiteUtils.TestTaskJsonBasePath;
+    tasksManager.basePath = TaskManagerSuiteUtils.TestTaskJsonBasePath;
   }
 
   public static DeleteTaskJsonFile() {
@@ -25,12 +25,12 @@ export default class TaskManagerSuiteUtils {
     fs.rmdirSync(TaskManagerSuiteUtils.TestTaskJsonBasePath);
   }
   
-  public static ReadTestTasksJson(sut: {taskManager: { readOrCreate: () => TaskJson[]}}): TaskJson[] {
+  public static ReadTestTasksJson(sut: {tasksManager: { readOrCreate: () => TaskJson[]}}): TaskJson[] {
     if (!sut) throw TypeError('sut is not a valid command object');
-    if (!sut.taskManager) throw new TypeError('taskManager is not existing');
-    if (!sut.taskManager.readOrCreate) throw new TypeError('readOrCreate is not existing');
-    if (typeof sut.taskManager.readOrCreate !== 'function') throw new TypeError('readOrCreate is not a function');
+    if (!sut.tasksManager) throw new TypeError('tasksManager is not existing');
+    if (!sut.tasksManager.readOrCreate) throw new TypeError('readOrCreate is not existing');
+    if (typeof sut.tasksManager.readOrCreate !== 'function') throw new TypeError('readOrCreate is not a function');
     
-    return sut.taskManager.readOrCreate();
+    return sut.tasksManager.readOrCreate();
   }
 }

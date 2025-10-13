@@ -1,6 +1,6 @@
 import type { TaskJson } from "./task.types.js";
 
-export interface TaskManagerInterface {
+export interface TasksJsonManager {
   readOrCreate(): TaskJson[];
   updateTasksJson(): void;
   getTaskIndexById(id: number): number;
