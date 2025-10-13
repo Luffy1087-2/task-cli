@@ -1,32 +1,50 @@
-type Stub = {
-    o: any,
-    methods: { name: string, of: () => any }[]
-}
+type StubMethodStructure = {
+    name: string,
+    of: () => any 
+};
+
+type StubStructure = {
+    ref: any,
+    methods: StubMethodStructure[]
+};
 
 class CustomStub {
-    private readonly originalMethods: Stub[] = [];
+    private readonly stubStrucures: StubStructure[] = [];
 
-    stubMethod(obj: any, method: string, cb: (args: any) => any) {
-        if (typeof obj[method] !== 'function') throw new TypeError(`${method} is not a function`);
-        let foundObject = this.originalMethods.find(curObj => curObj.o === curObj);
-        if (!foundObject) {
-            foundObject = {o: obj, methods: []};
-            this.originalMethods.push(foundObject);
+    stubMethod(ref: any, method: string, cb: (args: any) => any) {
+        if (typeof ref[method] !== 'function') throw new TypeError(`${method} is not a function`);
+        let foundStructure: StubStructure | undefined = this.stubStrucures.find((ss: StubStructure) => ss.ref === ss);
+        if (!foundStructure) {
+            foundStructure = { ref, methods: [] };
+            this.stubStrucures.push(foundStructure);
         }
-        const foundMethod = foundObject.methods.find(m => m.name === method);
-        if (!foundMethod) foundObject.methods.push({name: method, of: obj[method]});
+        const foundMethodStructure: StubMethodStructure | undefined = foundStructure.methods.find((sms: StubMethodStructure) => sms.name === method);
+        if (!foundMethodStructure) foundStructure.methods.push({name: method, of: ref[method]});
 
-        obj[method] = cb;
+        ref[method] = cb;
     }
 
-    restore(obj: any) {
-        const foundObject = this.originalMethods.find(curObj => curObj.o === obj);
-        if (!foundObject) return;
-        foundObject.methods.forEach(m => foundObject.o[m.name] = m.of);
+    restore(ref: any) {
+        this.restoreOriginalsByObjectReference(ref, true);
     }
 
     restoreAll() {
-        this.originalMethods.forEach((curObj: Stub) => this.restore(curObj.o));
+        this.stubStrucures.forEach((ss: StubStructure) => this.restoreOriginalsByObjectReference(ss.ref, false));
+        this.emptyArray();
+    }
+
+    private restoreOriginalsByObjectReference(ref: any, shouldRemoveElement: boolean) {
+        const foundStructure = this.stubStrucures.find((ss: StubStructure) => ss.ref === ref);
+        if (!foundStructure) return;
+        foundStructure.methods.forEach((sms: StubMethodStructure) => foundStructure.ref[sms.name] = sms.of);
+        if (!shouldRemoveElement) return;
+        const foundIndex = this.stubStrucures.findIndex((ss: StubStructure) => ss.ref === ref);
+        if (foundIndex === -1) return;
+        this.stubStrucures.splice(foundIndex, 1);
+    }
+
+    private emptyArray() {
+        while (this.stubStrucures.length) this.stubStrucures.splice(0, 1);
     }
 };
 
