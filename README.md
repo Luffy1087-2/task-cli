@@ -2,17 +2,17 @@
 
 Utility for creating and managing tasks from the cli
 
-## Requirements
+## REQUIREMENTS
 nodejs (version >= 22.0.0)
 
-## Installation
+## INSTALLATION
 - git clone [git@github.com:Luffy1087-2/task-cli.git](git@github.com:Luffy1087-2/task-cli.git)
 - go to task-cli directory (cd task-cli)
 - npm i
 - npm run compile:rebuild
 - npm link
 
-## Allowed commands
+## ALLOWED COMMANDS
 - add
 - edit
 - changeStatus
