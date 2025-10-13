@@ -63,6 +63,6 @@ In this example, in progess tasks are listed:
 
 `task-cli list 1`
 
-## HOWW TO RUN TESTS
+## HOW TO RUN TESTS
 
 `npm run test`
