@@ -9,6 +9,7 @@ nodejs (version >= 22.0.0)
 - git clone [git@github.com:Luffy1087-2/task-cli.git](git@github.com:Luffy1087-2/task-cli.git)
 - go to task-cli directory (cd task-cli)
 - npm i
+- npm run compile:rebuild
 - npm link
 
 ## Allowed commands
@@ -59,3 +60,7 @@ The **delete** command accepts Id of the task as parameter
 In this example, in progess tasks are listed:
 
 `task-cli list 1`
+
+#### Run Unit Tests
+
+`npm run test`
