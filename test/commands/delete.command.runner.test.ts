@@ -6,6 +6,7 @@ import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
 import { TaskStatus } from '../../src/types/core/task.types.js';
 import { DeleteCommandRunner } from '../../src/commands/delete.command-runner.js';
 import { deleteJsonTest, readJsonTest } from '../utils/jsonTest.js';
+import { TaskStatusToCode } from '../../src/core/task-status.enum.mapping.js';
 
 describe('delete.command.runner', {}, () => {
   let sut: CommandRunner;
@@ -40,9 +41,9 @@ describe('delete.command.runner', {}, () => {
     // Check
     const oldTasks = readJsonTest();
     assert.equal(oldTasks.length, 1);
-    assert.equal(oldTasks[0]?.Id, 1);
-    assert.equal(oldTasks[0]?.StatusCode, TaskStatus.TODO);
-    assert.equal(typeof oldTasks[0].UpdatedAt, 'number');
+    assert.equal(oldTasks[0]?.id, 1);
+    assert.equal(oldTasks[0]?.status, TaskStatusToCode(TaskStatus.TODO));
+    assert.equal(typeof oldTasks[0]?.updatedAt, 'number');
 
     // Arrange
     const request: DeleteCommandRequest = {id: 1};

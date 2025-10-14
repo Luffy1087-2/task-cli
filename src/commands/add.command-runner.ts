@@ -22,7 +22,7 @@ export class AddCommandRunner implements CommandRunner {
   }
 
   private getNewId(tasksJson: TaskJson[]): number {
-    const ids = tasksJson.map(t => t.Id);
+    const ids = tasksJson.map(t => t.id);
     const maxId = ids.length ? Math.max(...ids) : 0;
 
     return maxId + 1;
@@ -31,11 +31,11 @@ export class AddCommandRunner implements CommandRunner {
   private getNewTask(newId: number, request: AddCommandRequest): TaskJson {
     const date = Date.now()
     return {
-      Id: newId,
-      Name: request.name.replace(/\^/g, ''),
-      CreatedAt: date,
-      UpdatedAt: date,
-      StatusCode: TaskStatus.TODO
+      id: newId,
+      description: request.name.replace(/\^/g, ''),
+      createdAt: date,
+      updatedAt: date,
+      status: 0
     };
   }
 }

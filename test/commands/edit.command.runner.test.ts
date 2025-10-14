@@ -47,11 +47,11 @@ describe('edit.command.runner', {}, () => {
     // Assert
     const oldTask = readJsonTest();
     assert.equal(oldTask.length, 1);
-    assert.equal(oldTask[0]?.Id, 1);
-    assert.equal(oldTask[0]?.Name, defaultTaskName);
+    assert.equal(oldTask[0]?.id, 1);
+    assert.equal(oldTask[0]?.description, defaultTaskName);
 
     // Arrange
-    const oldUpdateTime = oldTask[0].UpdatedAt;
+    const oldUpdateTime = oldTask[0]?.updatedAt;
     const request: EditCommandRequest = {id: 1, name: newTaskName};
 
     // Act
@@ -60,8 +60,8 @@ describe('edit.command.runner', {}, () => {
     // Assert
     const tasks = readJsonTest();
     assert.equal(tasks.length, 1);
-    assert.equal(tasks[0].Name, newTaskName);
-    assert.equal(typeof tasks[0].UpdatedAt, 'number');
-    assert.notEqual(tasks[0].UpdatedAt, oldUpdateTime);
+    assert.equal(tasks[0]?.description, newTaskName);
+    assert.equal(typeof tasks[0]?.updatedAt, 'number');
+    assert.notEqual(tasks[0]?.updatedAt, oldUpdateTime);
   });
 });

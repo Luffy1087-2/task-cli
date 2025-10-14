@@ -6,6 +6,7 @@ import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
 import { TaskStatus } from '../../src/types/core/task.types.js';
 import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
 import { deleteJsonTest, readJsonTest } from '../utils/jsonTest.js';
+import { TaskStatusToCode } from '../../src/core/task-status.enum.mapping.js';
 
 describe('change-status.command.runner', {}, () => {
   let sut: CommandRunner;
@@ -30,13 +31,13 @@ describe('change-status.command.runner', {}, () => {
     assert.throws(() => sut.run(isNaNRequest), TypeError);
 
     // Arrange
-    const badStatusCodeRequest: ChangeStatusCommandRequest = {id: 1, statusCode: 10 as TaskStatus};
+    const badStatusCodeRequest: ChangeStatusCommandRequest = {id: 1, statusCode: 10};
 
     // Assert
     assert.throws(() => sut.run(badStatusCodeRequest), TypeError);
 
     // Arrange
-    const notFoundTaskCodeRequest: ChangeStatusCommandRequest = {id: 10, statusCode: TaskStatus.PROGRESS};
+    const notFoundTaskCodeRequest: ChangeStatusCommandRequest = {id: 10, statusCode: 1};
 
     // Assert
     assert.throws(() => sut.run(notFoundTaskCodeRequest), TypeError);
@@ -46,13 +47,13 @@ describe('change-status.command.runner', {}, () => {
     //Assert
     const oldTasks = readJsonTest();
     assert.equal(oldTasks.length, 1);
-    assert.equal(oldTasks[0]?.Id, 1);
-    assert.equal(oldTasks[0]?.StatusCode, TaskStatus.TODO);
-    assert.equal(typeof oldTasks[0].UpdatedAt, 'number');
+    assert.equal(oldTasks[0]?.id, 1);
+    assert.equal(oldTasks[0]?.status, TaskStatusToCode(TaskStatus.TODO));
+    assert.equal(typeof oldTasks[0]?.updatedAt, 'number');
 
     // Arrange
-    const updateTime = oldTasks[0].UpdatedAt;
-    const request: ChangeStatusCommandRequest = {id: 1, statusCode: TaskStatus.PROGRESS};
+    const updateTime = oldTasks[0]?.updatedAt;
+    const request: ChangeStatusCommandRequest = {id: 1, statusCode: 1};
 
     // Act
     sut.run(request);
@@ -60,7 +61,7 @@ describe('change-status.command.runner', {}, () => {
     // Assert
     const tasks = readJsonTest();
     assert.equal(tasks.length, 1);
-    assert.notEqual(tasks[0].UpdatedAt, updateTime);
-    assert.equal(tasks[0].StatusCode, TaskStatus.PROGRESS);
+    assert.notEqual(tasks[0]?.updatedAt, updateTime);
+    assert.equal(tasks[0]?.status, TaskStatusToCode(TaskStatus.PROGRESS));
   });
 });

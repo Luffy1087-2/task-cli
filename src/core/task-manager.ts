@@ -29,13 +29,13 @@ export class TasksManager implements TasksJsonManager {
 
   getTaskIndexById(id: number) {
     const tasks = this.getTasksJson();
-    const index = tasks.findIndex(t => t.Id === id);
+    const index = tasks.findIndex(t => t.id === id);
     return index;
   }
 
   getTaskById(id: number) {
     const tasks = this.getTasksJson();
-    const task = tasks.find(t => t.Id === id);
+    const task = tasks.find(t => t.id === id);
     return task;
   }
   

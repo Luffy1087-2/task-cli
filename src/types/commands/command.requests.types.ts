@@ -15,11 +15,11 @@ export type DeleteCommandRequest = {
 
 export type ChangeStatusCommandRequest = {
   id: number;
-  statusCode: TaskStatus;
+  statusCode: number;
 };
 
 export type ListCommandRequest = {
-  statusCode?: TaskStatus | undefined;
+  statusCode?: number | undefined;
 };
 
 export type CommandRequest = AddCommandRequest | EditCommandRequest | DeleteCommandRequest | ListCommandRequest;

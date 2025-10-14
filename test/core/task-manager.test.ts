@@ -8,13 +8,13 @@ import { deleteJsonTest } from '../utils/jsonTest.js';
 describe('task-manager', () => {
   let sut: TasksJsonManager;
 
-  function getTask(id: number, name: string): TaskJson {
+  function getTask(id: number, description: string): TaskJson {
     return {
-      Id: id,
-      Name: name,
-      StatusCode: TaskStatus.TODO,
-      CreatedAt: 0,
-      UpdatedAt: 1
+      id,
+      description,
+      status: 0,
+      createdAt: 0,
+      updatedAt: 1
     };
   }
 
@@ -54,7 +54,7 @@ describe('task-manager', () => {
     // Assert
     const newTasks = sut.readOrCreate();
     assert.equal(newTasks.length, 1);
-    assert.equal(newTasks[0]?.Name, 'name 1');
+    assert.equal(newTasks[0]?.description, 'name 1');
   });
 
   it('getTaskIndexById should return the expected index', () => {
@@ -69,7 +69,7 @@ describe('task-manager', () => {
 
     // Assert
     assert.equal(indexById, 1);
-    assert.equal(tasks[indexById]?.Name, 'name 2');
+    assert.equal(tasks[indexById]?.description, 'name 2');
   });
 
   it('getTaskById should return the expected task', () => {
@@ -84,6 +84,6 @@ describe('task-manager', () => {
 
     // Assert
     assert.ok(!!task, 'task by Id is not found');
-    assert.equal(task.Name, 'name 2');
+    assert.equal(task.description, 'name 2');
   });
 })

@@ -1,13 +1,13 @@
 export enum TaskStatus {
-  TODO,
-  PROGRESS,
-  DONE
+  TODO = 'todo',
+  PROGRESS = 'in-progress',
+  DONE = 'done'
 };
 
 export type TaskJson = {
-  Id: number,
-  Name: string,
-  StatusCode: TaskStatus
-  CreatedAt: number,
-  UpdatedAt: number
+  id: number,
+  description: string,
+  status: number
+  createdAt: number,
+  updatedAt: number
 };

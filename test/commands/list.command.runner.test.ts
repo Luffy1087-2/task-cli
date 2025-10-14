@@ -39,7 +39,7 @@ describe('list.command.runner', {}, () => {
 
   it('should throw excetion when request.statusCode id not valid', () => {
     // Arrange
-    const badStatusCode: ListCommandRequest = {statusCode: 10 as TaskStatus};
+    const badStatusCode: ListCommandRequest = {statusCode: 10};
 
     // Assert
     assert.throws(() => sut.run(badStatusCode), TypeError);
@@ -87,8 +87,8 @@ describe('list.command.runner', {}, () => {
     addCommandRunner.run({name: 'First Task'});
     addCommandRunner.run({name: 'Second Task - Progress'});
     addCommandRunner.run({name: 'Second Task'});
-    changeStatusCodeRunner.run({id: 2, statusCode: TaskStatus.PROGRESS});
-    const allTasksListRequest: ListCommandRequest = {statusCode: TaskStatus.PROGRESS};
+    changeStatusCodeRunner.run({id: 2, statusCode: 1});
+    const allTasksListRequest: ListCommandRequest = {statusCode: 1};
 
     // Act
     sut.run(allTasksListRequest);
@@ -98,7 +98,7 @@ describe('list.command.runner', {}, () => {
     assert.equal(outputButAddingLogs.length, 5);
     assert.equal(outputButAddingLogs[0], 'Id: 2');
     assert.equal(outputButAddingLogs[1], 'Name: Second Task - Progress');
-    assert.equal(outputButAddingLogs[2], 'Status: PROGRESS - 1');
+    assert.equal(outputButAddingLogs[2], 'Status: IN-PROGRESS - 1');
     assert.match(outputButAddingLogs[3] ?? '', /^Created At:\s[\d\/]+,\s[\d:]+$/);
     assert.match(outputButAddingLogs[4] ?? '', /^Updated At:\s[\d\/]+,\s[\d:]+$/);
   });
@@ -108,7 +108,7 @@ describe('list.command.runner', {}, () => {
     addCommandRunner.run({name: 'First Task'});
     addCommandRunner.run({name: 'Second Task - Progress'});
     addCommandRunner.run({name: 'Second Task'});
-    const allTasksListRequest: ListCommandRequest = {statusCode: TaskStatus.DONE};
+    const allTasksListRequest: ListCommandRequest = {statusCode: 2};
 
     // Act
     sut.run(allTasksListRequest);
