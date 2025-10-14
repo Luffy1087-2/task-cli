@@ -2,8 +2,8 @@ import { after, afterEach, before, beforeEach, describe, it } from "node:test";
 import { TaskStatus, type TaskJson } from "../../src/types/core/task.types.js";
 import { type TasksJsonManager } from "../../src/types/core/taskManager.interface.js";
 import { TasksManager } from "../../src/core/task-manager.js";
-import TaskManagerSuiteUtils from "../task-manager.suite-utils.js";
 import assert from "node:assert";
+import { deleteJsonTest } from "../utils/jsonTest.js";
 
 describe('task-manager', () => {
   let sut: TasksJsonManager;
@@ -19,21 +19,20 @@ describe('task-manager', () => {
   }
 
   before(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
     sut = new TasksManager();
-    TaskManagerSuiteUtils.MockTaskManagerBasePath(sut as any);
   });
 
   beforeEach(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
   })
 
   afterEach(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
   });
 
   after(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
   });
 
   it('readOrCreate should return empty array when there are no tasks', () => {

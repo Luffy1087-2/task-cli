@@ -3,11 +3,11 @@ import assert from 'node:assert';
 import type { CommandRunner } from '../../src/types/commands/command-runner.interface.js';
 import type { ListCommandRequest } from '../../src/types/commands/command.requests.types.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
-import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
 import { TaskStatus } from '../../src/types/core/task.types.js';
 import { ListCommandRunner } from '../../src/commands/list.command-runner.js';
 import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
-import customStub from '../custom-stub.js';
+import customStub from '../utils/custom-stub.js';
+import { deleteJsonTest } from '../utils/jsonTest.js';
 
 describe('list.command.runner', {}, () => {
   let addCommandRunner: CommandRunner;
@@ -16,17 +16,14 @@ describe('list.command.runner', {}, () => {
   let output: string[] = [];
 
   before(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
     addCommandRunner = new AddCommandRunner();
     changeStatusCodeRunner = new ChangeStatusCommandRunner();
     sut = new ListCommandRunner();
-    TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(addCommandRunner as any);
-    TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(changeStatusCodeRunner as any);
-    TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(sut as any);
   });
 
   beforeEach(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
     output = [];
     customStub.stubMethod(console, 'log', (outputString) => output.push(outputString));
   });
@@ -37,7 +34,7 @@ describe('list.command.runner', {}, () => {
 
   after(() => {
     customStub.restoreAll();
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
   });
 
   it('should throw excetion when request.statusCode id not valid', () => {

@@ -4,22 +4,21 @@ import type { CommandRunner } from '../../src/types/commands/command-runner.inte
 import type { AddCommandRequest } from '../../src/types/commands/command.requests.types.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
 import { TaskStatus } from '../../src/types/core/task.types.js';
-import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
+import { deleteJsonTest, readJsonTest } from '../utils/jsonTest.js';
 
-describe('add.command.runner', {}, () => {
+describe('add.command.runner', () => {
   let sut: CommandRunner;
 
   before(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
   });
 
   after(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
   });
 
   beforeEach(() => {
     sut = new AddCommandRunner();
-    TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(sut as any);
   });
 
   it('should throw excetion when request.name is not valid', () => {
@@ -38,7 +37,7 @@ describe('add.command.runner', {}, () => {
     sut.run(request);
 
     // Assert
-    const tasks = TaskManagerSuiteUtils.ReadTestTasksJson(sut as any);
+    const tasks = readJsonTest();
     assert.ok(tasks.length === 1, 'length should be one');
     assert.ok(tasks[0]?.Id === 1, 'Id should be one');
     assert.ok(tasks[0]?.Name === "MyTestTask", 'Name should be MyTestTask');
@@ -55,7 +54,7 @@ describe('add.command.runner', {}, () => {
     sut.run(request);
 
     // Assert
-    const tasks = TaskManagerSuiteUtils.ReadTestTasksJson(sut as any);
+    const tasks = readJsonTest();
     assert.ok(tasks.length === 2, 'length should be two');
     assert.ok(tasks[1]?.Id === 2, 'Id should be two');
     assert.ok(tasks[1]?.Name === "My second task", 'Name should be "My second task"');

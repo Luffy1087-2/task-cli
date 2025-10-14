@@ -6,7 +6,7 @@ import { DeleteCommandRunner } from "../../src/commands/delete.command-runner.js
 import { ChangeStatusCommandRunner } from "../../src/commands/change-status.command-runner.js";
 import { ListCommandRunner } from "../../src/commands/list.command-runner.js";
 import { CommandsRunnerFactory } from "../../src/factory/commands-runner.factory.js";
-import customStub from "../custom-stub.js";
+import customStub from "../utils/custom-stub.js";
 
 
 describe('commands.runner.factory', () => {

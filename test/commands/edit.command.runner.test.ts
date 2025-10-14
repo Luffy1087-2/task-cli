@@ -3,8 +3,8 @@ import assert from 'node:assert';
 import type { CommandRunner } from '../../src/types/commands/command-runner.interface.js';
 import type { AddCommandRequest, ChangeStatusCommandRequest, EditCommandRequest } from '../../src/types/commands/command.requests.types.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
-import TaskManagerSuiteUtils from '../task-manager.suite-utils.js';
 import { EditCommandRunner } from '../../src/commands/edit.command-runner.js';
+import { deleteJsonTest, readJsonTest } from '../utils/jsonTest.js';
 
 describe('edit.command.runner', {}, () => {
   const defaultTaskName = 'Task Test';
@@ -12,17 +12,15 @@ describe('edit.command.runner', {}, () => {
   let sut: CommandRunner;
 
   before(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
     const addCommandRunner = new AddCommandRunner();
     sut = new EditCommandRunner();
-    TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(addCommandRunner as any);
-    TaskManagerSuiteUtils.MockCommandTaskManagerBasePath(sut as any);
     const addCommandRequest: AddCommandRequest = {name: defaultTaskName};
     addCommandRunner.run(addCommandRequest);
   });
 
   after(() => {
-    TaskManagerSuiteUtils.DeleteTaskJsonFile();
+    deleteJsonTest();
   });
 
   it('should throw excetion when request.id or request.statusCode are not valid', () => {
@@ -47,19 +45,20 @@ describe('edit.command.runner', {}, () => {
 
   it('should change the Task Name', () => {
     // Assert
-    const tasks = TaskManagerSuiteUtils.ReadTestTasksJson(sut as any);
-    assert.ok(tasks.length === 1);
-    assert.ok(tasks[0]?.Id === 1);
-    assert.equal(tasks[0]?.Name, defaultTaskName);
+    const oldTask = readJsonTest();
+    assert.ok(oldTask.length === 1);
+    assert.ok(oldTask[0]?.Id === 1);
+    assert.equal(oldTask[0]?.Name, defaultTaskName);
 
     // Arrange
-    const oldUpdateTime = tasks[0].UpdatedAt;
+    const oldUpdateTime = oldTask[0].UpdatedAt;
     const request: EditCommandRequest = {id: 1, name: newTaskName};
 
     // Act
     sut.run(request);
     
     // Assert
+    const tasks = readJsonTest();
     assert.ok(tasks.length === 1);
     assert.equal(tasks[0].Name, newTaskName);
     assert.equal(typeof tasks[0].UpdatedAt, 'number');

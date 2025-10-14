@@ -4,12 +4,7 @@ import type { TaskJson } from '../types/core/task.types.js';
 import type { TasksJsonManager } from "../types/core/taskManager.interface.js";
 
 export class TasksManager implements TasksJsonManager {
-  private readonly basePath: string;
   private tasksJson: TaskJson[] | undefined;
-
-  constructor() {
-    this.basePath = path.normalize(`${process.cwd()}/task`);
-  }
 
   readOrCreate(): TaskJson[] {
     fs.ensureDirSync(this.basePath);
@@ -42,6 +37,12 @@ export class TasksManager implements TasksJsonManager {
     const tasks = this.getTasksJson();
     const task = tasks.find(t => t.Id === id);
     return task;
+  }
+  
+  private get basePath(): string {
+    if (process.env.TASK_TRACKER_CLI_JSON_DIR) return path.normalize(`${process.cwd()}/${process.env.TASK_TRACKER_CLI_JSON_DIR}`);
+    
+    return path.normalize(`${process.cwd()}/task`);
   }
 
   private getTasksJson(): TaskJson[] {
