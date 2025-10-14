@@ -8,6 +8,7 @@ import { ListCommandRunner } from '../../src/commands/list.command-runner.js';
 import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
 import customStub from '../utils/custom-stub.js';
 import { deleteJsonTest } from '../utils/jsonTest.js';
+import { TaskStatusToCode } from '../../src/core/task-status.enum.mapping.js';
 
 describe('list.command.runner', {}, () => {
   let addCommandRunner: CommandRunner;
@@ -39,7 +40,7 @@ describe('list.command.runner', {}, () => {
 
   it('should throw excetion when request.statusCode id not valid', () => {
     // Arrange
-    const badStatusCode: ListCommandRequest = {statusCode: 10};
+    const badStatusCode: ListCommandRequest = {statusCode: 'not found'};
 
     // Assert
     assert.throws(() => sut.run(badStatusCode), TypeError);
@@ -87,11 +88,11 @@ describe('list.command.runner', {}, () => {
     addCommandRunner.run({name: 'First Task'});
     addCommandRunner.run({name: 'Second Task - Progress'});
     addCommandRunner.run({name: 'Second Task'});
-    changeStatusCodeRunner.run({id: 2, statusCode: 1});
-    const allTasksListRequest: ListCommandRequest = {statusCode: 1};
+    changeStatusCodeRunner.run({id: 2, statusCode: TaskStatusToCode(TaskStatus.IN_PROGRESS) ?? '777'});
+    const inProgressTasksListRequest: ListCommandRequest = {statusCode: TaskStatus.IN_PROGRESS};
 
     // Act
-    sut.run(allTasksListRequest);
+    sut.run(inProgressTasksListRequest);
 
     // Assert
     const outputButAddingLogs = output.slice(4);
@@ -108,7 +109,7 @@ describe('list.command.runner', {}, () => {
     addCommandRunner.run({name: 'First Task'});
     addCommandRunner.run({name: 'Second Task - Progress'});
     addCommandRunner.run({name: 'Second Task'});
-    const allTasksListRequest: ListCommandRequest = {statusCode: 2};
+    const allTasksListRequest: ListCommandRequest = {statusCode: TaskStatus.IN_PROGRESS};
 
     // Act
     sut.run(allTasksListRequest);

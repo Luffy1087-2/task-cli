@@ -14,8 +14,9 @@ nodejs (version >= 22.0.0)
 
 ## ALLOWED COMMANDS
 - add
-- edit
-- changeStatus
+- update
+- mark-in-progress
+- mark-done
 - delete
 - list
 
@@ -24,37 +25,48 @@ nodejs (version >= 22.0.0)
 **Note: The commands should run from the root directory**
 
 ### Adding a task
+
 The **add** command accepts the name of the task as parameter
 
 `task-cli add \"My task\"`
 
 **Note**: If you want to include spaces in the task name, you should enclose the name in double quotes escaped with \\"
 
-### Editing a task name
-The **edit** command accepts Id of the task and the new name of the task as parameters
+### update a task name
+
+The **update** command accepts id of the task and the updated name as parameters
 
 `task-cli edit 1 \"My task number one\"`
 
 ### Change the status of a task
 
-A task status can be one of the following codes:
-- 1 = TODO (default one)
-- 2 = PROGRESS
-- 3 = DONE
+A task status can be as follows:
+- 0 = todo (default one)
+- 1 = in-progress
+- 2 = done
 
-The **changeStatus** command accepts the Id of the task and the new status code as parameters
+### Mark a task in-progress
 
-Example chaging the task code to **3** (**DONE**) for the task with the Id **1**
-`task-cli changeStatus 1 3`
+Example changing the code to **2** (**IN-PROGRESS**) for the task with the id **1**
+
+`task-cli mark-in-progress 1`
+
+### Mark a task done
+
+Example changing the code to **3** (**DONE**) for the task with the id **1**
+
+`task-cli mark-done 1`
 
 ### Deleting a task
-The **delete** command accepts Id of the task as parameter
+
+The **delete** command accepts id of the task as parameter
 
 `task-cli delete 1`
 
 ### List tasks
 
 #### List all tasks
+
 `task-cli list`
 
 #### List tasks filtered by status code

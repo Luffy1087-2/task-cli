@@ -13,8 +13,9 @@ import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditComma
 
 enum AllowedCommands {
   ADD = 'add',
-  EDIT = 'edit',
-  CHANGE_STATUS = 'changeStatus',
+  UPDATE = 'update',
+  MARK_IN_PROGRESS = 'mark-in-progress',
+  MARK_DONE = 'mark-done',
   DELETE = 'delete',
   LIST = 'list'
 };
@@ -43,14 +44,16 @@ export class CommandsRunnerFactory implements CommandsFactory {
     switch (command) {
       case AllowedCommands.ADD.toString():
           return this.createAddCommandRunner(params);
-      case AllowedCommands.EDIT.toString():
+      case AllowedCommands.UPDATE.toString():
           return this.createEditCommandRunner(params);
-      case AllowedCommands.CHANGE_STATUS.toString():
-          return this.createChageStatusCommandRunner(params);
+      case AllowedCommands.MARK_IN_PROGRESS.toString():
+        return this.createChageStatusCommandRunner(params, 1);
+      case AllowedCommands.MARK_DONE.toString():
+        return this.createChageStatusCommandRunner(params, 2);
       case AllowedCommands.DELETE.toString():
         return this.createDeleteCommandRunner(params);
       case AllowedCommands.LIST.toString():
-          return this.createListCommandRunner(params);
+        return this.createListCommandRunner(params);
     }
     throw new RangeError('Generic error');
   }
@@ -64,8 +67,7 @@ export class CommandsRunnerFactory implements CommandsFactory {
   
   private createListCommandRunner(params: string[]): [CommandRunner, CommandRequest] {
     const [ status ] = params;
-    const statusCode = status ? Number(status) : undefined;
-    const request: ListCommandRequest = { statusCode: statusCode };
+    const request: ListCommandRequest = { statusCode: status };
     const commandRunner = new ListCommandRunner();
 
     return [ commandRunner, request ];
@@ -87,9 +89,9 @@ export class CommandsRunnerFactory implements CommandsFactory {
     return [ commandRunner, request ];
   }
 
-  private createChageStatusCommandRunner(params: string[]): [ CommandRunner, CommandRequest ] {
+  private createChageStatusCommandRunner(params: string[], overrideStatusCode?: number): [ CommandRunner, CommandRequest ] {
     const [ id, statusCode ] = params;
-    const request: ChangeStatusCommandRequest = {id: Number(id), statusCode: Number(statusCode)};
+    const request: ChangeStatusCommandRequest = {id: Number(id), statusCode: overrideStatusCode || Number(statusCode)};
     const commandRunner = new ChangeStatusCommandRunner();
     
     return [ commandRunner, request ];

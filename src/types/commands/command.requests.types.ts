@@ -19,7 +19,7 @@ export type ChangeStatusCommandRequest = {
 };
 
 export type ListCommandRequest = {
-  statusCode?: number | undefined;
+  statusCode?: string | undefined;
 };
 
 export type CommandRequest = AddCommandRequest | EditCommandRequest | DeleteCommandRequest | ListCommandRequest;

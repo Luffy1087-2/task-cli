@@ -62,6 +62,6 @@ describe('change-status.command.runner', {}, () => {
     const tasks = readJsonTest();
     assert.equal(tasks.length, 1);
     assert.notEqual(tasks[0]?.updatedAt, updateTime);
-    assert.equal(tasks[0]?.status, TaskStatusToCode(TaskStatus.PROGRESS));
+    assert.equal(tasks[0]?.status, TaskStatusToCode(TaskStatus.IN_PROGRESS));
   });
 });

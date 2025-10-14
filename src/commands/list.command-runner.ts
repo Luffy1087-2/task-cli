@@ -3,7 +3,7 @@ import type { ListCommandRequest } from '../types/commands/command.requests.type
 import type { CommandRunner } from '../types/commands/command-runner.interface.js';
 import { TaskStatus, type TaskJson } from '../types/core/task.types.js';
 import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
-import { CodeToTaskStatus } from '../core/task-status.enum.mapping.js';
+import { CodeToTaskStatus, TaskStatusToCode } from '../core/task-status.enum.mapping.js';
 
 export class ListCommandRunner implements CommandRunner {
   private readonly tasksManager: TasksJsonManager;
@@ -13,11 +13,11 @@ export class ListCommandRunner implements CommandRunner {
   }
 
   run(request: ListCommandRequest): void {
-    if (request.statusCode && !CodeToTaskStatus(request.statusCode)) throw new TypeError('StatusCode is not recognized');
+    if (request.statusCode && !TaskStatusToCode(request.statusCode as TaskStatus)) throw new TypeError('StatusCode is not recognized');
     const tasksJson = this.tasksManager.readOrCreate();
     if (!tasksJson.length) return void console.log('Tasks are empty');
     if (request.statusCode === undefined) return void tasksJson.forEach((t: TaskJson, i: number) => this.printTask(t, i));
-    const filteredTasks = tasksJson.filter(t => t.status === request.statusCode);
+    const filteredTasks = tasksJson.filter(t => t.status.toString() === TaskStatusToCode(request.statusCode as TaskStatus));
     if (filteredTasks.length) filteredTasks.forEach((t: TaskJson, i: number) => this.printTask(t, i));
     else console.log('No tasks match');
   }

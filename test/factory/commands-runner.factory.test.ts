@@ -69,7 +69,7 @@ describe('commands.runner.factory', () => {
   it('should run edit command', () => {
     // Arrange
     let called = false;
-    process.argv = ['Name', 'Path', 'edit'];
+    process.argv = ['Name', 'Path', 'update'];
     const factory = new CommandsRunnerFactory(process.argv);
     customStub.stubMethod(EditCommandRunner.prototype, 'run', () => called = true);
 
@@ -94,10 +94,24 @@ describe('commands.runner.factory', () => {
     assert.ok(called, 'run method is not called');
   });
 
-  it('should run changeStatus command', () => {
+  it('should run mark-in-progress command', () => {
     // Arrange
     let called = false;
-    process.argv = ['Name', 'Path', 'changeStatus'];
+    process.argv = ['Name', 'Path', 'mark-in-progress'];
+    const factory = new CommandsRunnerFactory(process.argv);
+    customStub.stubMethod(ChangeStatusCommandRunner.prototype, 'run', () => called = true);
+
+    // Act
+    factory.run();
+
+    // Assert
+    assert.ok(called, 'run method is not called');
+  });
+
+  it('should run mark-done command', () => {
+    // Arrange
+    let called = false;
+    process.argv = ['Name', 'Path', 'mark-done'];
     const factory = new CommandsRunnerFactory(process.argv);
     customStub.stubMethod(ChangeStatusCommandRunner.prototype, 'run', () => called = true);
 

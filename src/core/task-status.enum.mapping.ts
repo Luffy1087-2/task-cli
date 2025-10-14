@@ -11,5 +11,5 @@ export const TaskStatusToCode = (taskStatus: TaskStatus) => {
   const values = Object.values(TaskStatus);
   const index = values.indexOf(taskStatus);
 
-  return index === -1 ? undefined : index;
+  return index === -1 ? undefined : index.toString();
 }
