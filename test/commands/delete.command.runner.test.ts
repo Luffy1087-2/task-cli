@@ -39,10 +39,10 @@ describe('delete.command.runner', {}, () => {
   it('should delete task by id', () => {
     // Check
     const oldTasks = readJsonTest();
-    assert.ok(oldTasks.length === 1);
-    assert.ok(oldTasks[0]?.Id === 1);
-    assert.ok(oldTasks[0]?.StatusCode === TaskStatus.TODO);
-    assert.ok(typeof oldTasks[0].UpdatedAt === 'number');
+    assert.equal(oldTasks.length, 1);
+    assert.equal(oldTasks[0]?.Id, 1);
+    assert.equal(oldTasks[0]?.StatusCode, TaskStatus.TODO);
+    assert.equal(typeof oldTasks[0].UpdatedAt, 'number');
 
     // Arrange
     const request: DeleteCommandRequest = {id: 1};

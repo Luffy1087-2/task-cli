@@ -1,8 +1,8 @@
-import { TasksManager } from "../core/task-manager.js";
-import type { ChangeStatusCommandRequest } from "../types/commands/command.requests.types.js";
-import type { CommandRunner } from "../types/commands/command-runner.interface.js";
-import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
-import type { TasksJsonManager } from "../types/core/taskManager.interface.js";
+import { TasksManager } from '../core/task-manager.js';
+import type { ChangeStatusCommandRequest } from '../types/commands/command.requests.types.js';
+import type { CommandRunner } from '../types/commands/command-runner.interface.js';
+import { TaskStatus, type TaskJson } from '../types/core/task.types.js';
+import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
 
 export class ChangeStatusCommandRunner implements CommandRunner {
   private readonly tasksManager: TasksJsonManager;

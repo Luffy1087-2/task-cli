@@ -1,12 +1,12 @@
-import { after, afterEach, beforeEach, describe, it } from "node:test";
-import assert from "node:assert";
-import { AddCommandRunner } from "../../src/commands/add.command-runner.js";
-import { EditCommandRunner } from "../../src/commands/edit.command-runner.js";
-import { DeleteCommandRunner } from "../../src/commands/delete.command-runner.js";
-import { ChangeStatusCommandRunner } from "../../src/commands/change-status.command-runner.js";
-import { ListCommandRunner } from "../../src/commands/list.command-runner.js";
-import { CommandsRunnerFactory } from "../../src/factory/commands-runner.factory.js";
-import customStub from "../utils/custom-stub.js";
+import { after, afterEach, beforeEach, describe, it } from 'node:test';
+import assert from 'node:assert';
+import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
+import { EditCommandRunner } from '../../src/commands/edit.command-runner.js';
+import { DeleteCommandRunner } from '../../src/commands/delete.command-runner.js';
+import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
+import { ListCommandRunner } from '../../src/commands/list.command-runner.js';
+import { CommandsRunnerFactory } from '../../src/factory/commands-runner.factory.js';
+import customStub from '../utils/custom-stub.js';
 
 
 describe('commands.runner.factory', () => {
@@ -63,7 +63,7 @@ describe('commands.runner.factory', () => {
     factory.run();
 
     // Assert
-    assert.ok(called);
+    assert.ok(called, 'run method is not called');
   });
 
   it('should run edit command', () => {
@@ -77,7 +77,7 @@ describe('commands.runner.factory', () => {
     factory.run();
 
     // Assert
-    assert.ok(called);
+    assert.ok(called, 'run method is not called');
   });
 
   it('should run delete command', () => {
@@ -91,7 +91,7 @@ describe('commands.runner.factory', () => {
     factory.run();
 
     // Assert
-    assert.ok(called);
+    assert.ok(called, 'run method is not called');
   });
 
   it('should run changeStatus command', () => {
@@ -105,7 +105,7 @@ describe('commands.runner.factory', () => {
     factory.run();
 
     // Assert
-    assert.ok(called);
+    assert.ok(called, 'run method is not called');
   });
 
   it('should run list command', () => {
@@ -119,6 +119,6 @@ describe('commands.runner.factory', () => {
     factory.run();
 
     // Assert
-    assert.ok(called);
+    assert.ok(called, 'run method is not called');
   });
 });

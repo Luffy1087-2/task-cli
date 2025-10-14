@@ -1,8 +1,8 @@
-import { TasksManager } from "../core/task-manager.js";
-import type { ListCommandRequest } from "../types/commands/command.requests.types.js";
-import type { CommandRunner } from "../types/commands/command-runner.interface.js";
-import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
-import type { TasksJsonManager } from "../types/core/taskManager.interface.js";
+import { TasksManager } from '../core/task-manager.js';
+import type { ListCommandRequest } from '../types/commands/command.requests.types.js';
+import type { CommandRunner } from '../types/commands/command-runner.interface.js';
+import { TaskStatus, type TaskJson } from '../types/core/task.types.js';
+import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
 
 export class ListCommandRunner implements CommandRunner {
   private readonly tasksManager: TasksJsonManager;
@@ -33,7 +33,7 @@ export class ListCommandRunner implements CommandRunner {
   private getDateToTimestampByLocale(timestamp: number, culture: Intl.LocalesArgument = 'it-IT') {
     const date = new Date(timestamp);
     const writtenDate = date.toLocaleString(culture, {
-      day: "2-digit",
+      day: '2-digit',
       month: '2-digit',
       year: 'numeric',
       hour: '2-digit',

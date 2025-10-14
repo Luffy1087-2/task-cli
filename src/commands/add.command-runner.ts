@@ -1,8 +1,8 @@
-import { TasksManager } from "../core/task-manager.js";
-import type { CommandRunner as CommandRunner } from "../types/commands/command-runner.interface.js";
-import type { AddCommandRequest } from "../types/commands/command.requests.types.js";
-import { TaskStatus, type TaskJson } from "../types/core/task.types.js";
-import type { TasksJsonManager } from "../types/core/taskManager.interface.js";
+import { TasksManager } from '../core/task-manager.js';
+import type { CommandRunner as CommandRunner } from '../types/commands/command-runner.interface.js';
+import type { AddCommandRequest } from '../types/commands/command.requests.types.js';
+import { TaskStatus, type TaskJson } from '../types/core/task.types.js';
+import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
 
 export class AddCommandRunner implements CommandRunner {
   private readonly tasksManager: TasksJsonManager;
@@ -12,7 +12,7 @@ export class AddCommandRunner implements CommandRunner {
   }
 
   run(request: AddCommandRequest): void {
-    if (!request.name || !request.name.length) throw new TypeError("taskName should be a valid string");
+    if (!request.name || !request.name.length) throw new TypeError('taskName should be a valid string');
     const tasksJson = this.tasksManager.readOrCreate();
     const newId = this.getNewId(tasksJson);
     const newTask = this.getNewTask(newId, request);

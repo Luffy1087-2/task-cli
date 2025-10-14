@@ -53,7 +53,7 @@ describe('list.command.runner', {}, () => {
     sut.run(allTasksListRequest);
 
     // Assert
-    assert.ok(output.length === 1);
+    assert.equal(output.length, 1);
     assert.equal(output[0], 'Tasks are empty');
   });
 

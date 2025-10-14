@@ -1,4 +1,4 @@
-import type { TaskJson } from "./task.types.js";
+import type { TaskJson } from './task.types.js';
 
 export interface TasksJsonManager {
   readOrCreate(): TaskJson[];

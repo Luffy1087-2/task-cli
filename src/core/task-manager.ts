@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import type { TaskJson } from '../types/core/task.types.js';
-import type { TasksJsonManager } from "../types/core/taskManager.interface.js";
+import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
 
 export class TasksManager implements TasksJsonManager {
   private tasksJson: TaskJson[] | undefined;

@@ -38,15 +38,15 @@ describe('add.command.runner', () => {
 
     // Assert
     const tasks = readJsonTest();
-    assert.ok(tasks.length === 1, 'length should be one');
-    assert.ok(tasks[0]?.Id === 1, 'Id should be one');
-    assert.ok(tasks[0]?.Name === "MyTestTask", 'Name should be MyTestTask');
-    assert.ok(tasks[0]?.StatusCode === TaskStatus.TODO, 'Default status code should be TODO');
-    assert.ok(typeof tasks[0]?.CreatedAt === 'number');
-    assert.ok(typeof tasks[0]?.UpdatedAt === 'number');
+    assert.equal(tasks.length, 1, 'length should be one');
+    assert.equal(tasks[0]?.Id, 1, 'Id should be one');
+    assert.equal(tasks[0]?.Name, 'MyTestTask', 'Name should be MyTestTask');
+    assert.equal(tasks[0]?.StatusCode, TaskStatus.TODO, 'Default status code should be TODO');
+    assert.equal(typeof tasks[0]?.CreatedAt, 'number');
+    assert.equal(typeof tasks[0]?.UpdatedAt, 'number');
   });
 
-  it('should add task a second tasks with the name "My second task"', () => {
+  it('should add task a second tasks with the name \'My second task\'', () => {
     // Assert
     const request: AddCommandRequest = {name: 'My second task'};
 
@@ -55,11 +55,11 @@ describe('add.command.runner', () => {
 
     // Assert
     const tasks = readJsonTest();
-    assert.ok(tasks.length === 2, 'length should be two');
-    assert.ok(tasks[1]?.Id === 2, 'Id should be two');
-    assert.ok(tasks[1]?.Name === "My second task", 'Name should be "My second task"');
-    assert.ok(tasks[1]?.StatusCode === TaskStatus.TODO, 'Default status code should be TODO');
-    assert.ok(typeof tasks[1]?.CreatedAt === 'number');
-    assert.ok(typeof tasks[1]?.UpdatedAt === 'number');
+    assert.equal(tasks.length, 2, 'length should be two');
+    assert.equal(tasks[1]?.Id, 2, 'Id should be two');
+    assert.equal(tasks[1]?.Name, 'My second task', 'Name should be \'My second task\'');
+    assert.equal(tasks[1]?.StatusCode, TaskStatus.TODO, 'Default status code should be TODO');
+    assert.equal(typeof tasks[1]?.CreatedAt, 'number');
+    assert.equal(typeof tasks[1]?.UpdatedAt, 'number');
   });
 });

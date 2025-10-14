@@ -1,9 +1,9 @@
-import { after, afterEach, before, beforeEach, describe, it } from "node:test";
-import { TaskStatus, type TaskJson } from "../../src/types/core/task.types.js";
-import { type TasksJsonManager } from "../../src/types/core/taskManager.interface.js";
-import { TasksManager } from "../../src/core/task-manager.js";
-import assert from "node:assert";
-import { deleteJsonTest } from "../utils/jsonTest.js";
+import { after, afterEach, before, beforeEach, describe, it } from 'node:test';
+import { TaskStatus, type TaskJson } from '../../src/types/core/task.types.js';
+import { type TasksJsonManager } from '../../src/types/core/taskManager.interface.js';
+import { TasksManager } from '../../src/core/task-manager.js';
+import assert from 'node:assert';
+import { deleteJsonTest } from '../utils/jsonTest.js';
 
 describe('task-manager', () => {
   let sut: TasksJsonManager;
@@ -83,7 +83,7 @@ describe('task-manager', () => {
     const task = sut.getTaskById(2);
 
     // Assert
-    assert.ok(!!task);
+    assert.ok(!!task, 'task by Id is not found');
     assert.equal(task.Name, 'name 2');
   });
 })

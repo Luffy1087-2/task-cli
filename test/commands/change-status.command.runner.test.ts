@@ -45,10 +45,10 @@ describe('change-status.command.runner', {}, () => {
   it('should change status code from TODO to PROGRESS', () => {
     //Assert
     const oldTasks = readJsonTest();
-    assert.ok(oldTasks.length === 1);
-    assert.ok(oldTasks[0]?.Id === 1);
-    assert.ok(oldTasks[0]?.StatusCode === TaskStatus.TODO);
-    assert.ok(typeof oldTasks[0].UpdatedAt === 'number');
+    assert.equal(oldTasks.length, 1);
+    assert.equal(oldTasks[0]?.Id, 1);
+    assert.equal(oldTasks[0]?.StatusCode, TaskStatus.TODO);
+    assert.equal(typeof oldTasks[0].UpdatedAt, 'number');
 
     // Arrange
     const updateTime = oldTasks[0].UpdatedAt;
@@ -59,7 +59,7 @@ describe('change-status.command.runner', {}, () => {
 
     // Assert
     const tasks = readJsonTest();
-    assert.ok(tasks.length === 1);
+    assert.equal(tasks.length, 1);
     assert.notEqual(tasks[0].UpdatedAt, updateTime);
     assert.equal(tasks[0].StatusCode, TaskStatus.PROGRESS);
   });

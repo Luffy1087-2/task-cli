@@ -1,4 +1,4 @@
-import type { TaskStatus } from "../core/task.types.js";
+import type { TaskStatus } from '../core/task.types.js';
 
 export type AddCommandRequest = {
   name: string;

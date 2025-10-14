@@ -46,8 +46,8 @@ describe('edit.command.runner', {}, () => {
   it('should change the Task Name', () => {
     // Assert
     const oldTask = readJsonTest();
-    assert.ok(oldTask.length === 1);
-    assert.ok(oldTask[0]?.Id === 1);
+    assert.equal(oldTask.length, 1);
+    assert.equal(oldTask[0]?.Id, 1);
     assert.equal(oldTask[0]?.Name, defaultTaskName);
 
     // Arrange
@@ -59,7 +59,7 @@ describe('edit.command.runner', {}, () => {
     
     // Assert
     const tasks = readJsonTest();
-    assert.ok(tasks.length === 1);
+    assert.equal(tasks.length, 1);
     assert.equal(tasks[0].Name, newTaskName);
     assert.equal(typeof tasks[0].UpdatedAt, 'number');
     assert.notEqual(tasks[0].UpdatedAt, oldUpdateTime);
