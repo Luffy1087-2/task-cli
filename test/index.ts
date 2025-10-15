@@ -8,7 +8,7 @@ const loadTests = async (directoryPath: string) => {
     const files = readdirSync(directoryPath, { withFileTypes: true });
     for (const file of files) {
       if (file.isDirectory()) await loadTests(join(directoryPath, file.name));
-      if (file.isFile() && file.name.match(/\.test.js$/)) {
+      if (file.isFile() && file.name.match(/\.test\.js$/)) {
         const filePath = join(directoryPath, file.name);
         const fileUrl = pathToFileURL(filePath).href;
         await import(fileUrl);
