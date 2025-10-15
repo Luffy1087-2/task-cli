@@ -71,9 +71,9 @@ The **delete** command accepts id of the task as parameter
 
 #### List tasks filtered by status code
 
-In this example, in progess tasks are listed:
+In this example, in-progess tasks are listed:
 
-`task-cli list 1`
+`task-cli list in-progress`
 
 ## HOW TO RUN TESTS
 
