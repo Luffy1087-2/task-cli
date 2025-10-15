@@ -62,7 +62,7 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     if (!params.length) throw TypeError('No parameter found');
     const [ command ] = params;
     const allowedCommands = Object.values(AllowedCommands);
-    if (allowedCommands.indexOf(command as AllowedCommands) === -1) throw new RangeError(`Command "${command}" is not recognized`);
+    if (!allowedCommands.includes(command as AllowedCommands)) throw new RangeError(`Command "${command}" is not recognized`);
   }
   
   private createListCommandRunner(params: string[]): [CommandRunner, CommandRequest] {
