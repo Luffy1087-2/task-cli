@@ -7,7 +7,7 @@ import { ListCommandRunner } from '../commands/list.command-runner.js';
 
 // Types 
 import type { CommandRunner } from '../types/commands/command-runner.interface.js';
-import type { CommandsRunnerFactoryInterface as CommandsFactory } from '../types/factory/command-runner.factory.interface.js';
+import type { CommandsRunnerFactoryInterface } from '../types/factory/command-runner.factory.interface.js';
 import type { AddCommandRequest, DeleteCommandRequest, CommandRequest, EditCommandRequest, ListCommandRequest, ChangeStatusCommandRequest } from '../types/commands/command.requests.types.js';
 
 
@@ -20,7 +20,7 @@ enum AllowedCommands {
   LIST = 'list'
 };
 
-export class CommandsRunnerFactory implements CommandsFactory {
+export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
   private readonly params: string[];
 
   constructor(params: string[]) {
