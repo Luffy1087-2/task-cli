@@ -47,13 +47,13 @@ A task status can be as follows:
 
 ### Mark a task in-progress
 
-Example changing the code to **2** (**IN-PROGRESS**) for the task with the id **1**
+Example changing the code to **1** (**IN-PROGRESS**) for the task with the id **1**
 
 `task-cli mark-in-progress 1`
 
 ### Mark a task done
 
-Example changing the code to **3** (**DONE**) for the task with the id **1**
+Example changing the code to **2** (**DONE**) for the task with the id **1**
 
 `task-cli mark-done 1`
 
