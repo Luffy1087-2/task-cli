@@ -32,11 +32,11 @@ The **add** command accepts the name of the task as parameter
 
 **Note**: If you want to include spaces in the task name, you should enclose the name in double quotes escaped with \\"
 
-### update a task name
+### Update a task name
 
 The **update** command accepts id of the task and the updated name as parameters
 
-`task-cli edit 1 \"My task number one\"`
+`task-cli update 1 \"My task number one\"`
 
 ### Change the status of a task
 
