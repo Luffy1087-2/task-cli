@@ -89,9 +89,9 @@ export class CommandsRunnerFactory implements CommandsRunnerFactoryInterface {
     return [ commandRunner, request ];
   }
 
-  private createChageStatusCommandRunner(params: string[], overrideStatusCode?: number): [ CommandRunner, CommandRequest ] {
-    const [ id, statusCode ] = params;
-    const request: ChangeStatusCommandRequest = {id: Number(id), statusCode: overrideStatusCode || Number(statusCode)};
+  private createChageStatusCommandRunner(params: string[], statusCode: number): [ CommandRunner, CommandRequest ] {
+    const [ id ] = params;
+    const request: ChangeStatusCommandRequest = {id: Number(id), statusCode: Number(statusCode)};
     const commandRunner = new ChangeStatusCommandRunner();
     
     return [ commandRunner, request ];
