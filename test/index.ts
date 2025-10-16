@@ -1,6 +1,5 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
-import { run } from 'node:test';
 import { pathToFileURL } from 'url';
 
 const loadTests = async (directoryPath: string) => {
@@ -22,5 +21,4 @@ const loadTests = async (directoryPath: string) => {
 (async () => {
   process.env.TASK_TRACKER_CLI_JSON_DIR = 'dist/test/task';
   await loadTests('dist/test');
-  run();
 })();
