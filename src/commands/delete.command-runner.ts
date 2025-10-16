@@ -1,10 +1,13 @@
-import type { CommandRunner } from '../types/commands/command-runner.interface.js';
+// Types
+import type { Core } from '../types/core/core.types.js';
 import type { DeleteCommandRequest } from '../types/commands/command.requests.types.js';
-import { TasksManager } from '../core/task-manager.js';
-import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
+import type { CommandRunner } from '../types/commands/command-runner.types.js';
 
-export class DeleteCommandRunner implements CommandRunner {
-  private readonly tasksManager: TasksJsonManager;
+// Concretes
+import { TasksManager } from '../core/task-manager.js';
+
+export class DeleteCommandRunner implements CommandRunner.DeleteCommandRunner {
+  private readonly tasksManager: Core.TasksManager;
   
   constructor() {
     this.tasksManager = new TasksManager();

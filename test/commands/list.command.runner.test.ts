@@ -1,19 +1,22 @@
 import {describe, it, before, after, beforeEach, afterEach} from 'node:test';
 import assert from 'node:assert';
-import type { CommandRunner } from '../../src/types/commands/command-runner.interface.js';
+// Types
+import { Core } from '../../src/types/core/core.types.js';
+import type { CommandRunner } from '../../src/types/commands/command-runner.types.js';
 import type { ListCommandRequest } from '../../src/types/commands/command.requests.types.js';
+
+// Concretes
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
-import { TaskStatus } from '../../src/types/core/task.types.js';
 import { ListCommandRunner } from '../../src/commands/list.command-runner.js';
 import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
-import customStub from '../utils/custom-stub.js';
 import { deleteJsonTest } from '../utils/jsonTest.js';
 import { TaskStatusToCode } from '../../src/core/task-status.enum.mapping.js';
+import customStub from '../utils/custom-stub.js';
 
 describe('list.command.runner', {}, () => {
-  let addCommandRunner: CommandRunner;
-  let changeStatusCodeRunner: CommandRunner;
-  let sut: CommandRunner;
+  let addCommandRunner: CommandRunner.AddCommandRunner;
+  let changeStatusCodeRunner: CommandRunner.ChangeStatusCommandRunner;
+  let sut: CommandRunner.ListCommandRunner;
   let output: string[] = [];
 
   before(() => {
@@ -88,8 +91,8 @@ describe('list.command.runner', {}, () => {
     addCommandRunner.run({name: 'First Task'});
     addCommandRunner.run({name: 'Second Task - Progress'});
     addCommandRunner.run({name: 'Second Task'});
-    changeStatusCodeRunner.run({id: 2, statusCode: TaskStatusToCode(TaskStatus.IN_PROGRESS) ?? '777'});
-    const inProgressTasksListRequest: ListCommandRequest = {statusCode: TaskStatus.IN_PROGRESS};
+    changeStatusCodeRunner.run({id: 2, statusCode: Number(TaskStatusToCode(Core.TaskStatus.IN_PROGRESS) ?? '777')});
+    const inProgressTasksListRequest: ListCommandRequest = {statusCode: Core.TaskStatus.IN_PROGRESS};
 
     // Act
     sut.run(inProgressTasksListRequest);
@@ -109,7 +112,7 @@ describe('list.command.runner', {}, () => {
     addCommandRunner.run({name: 'First Task'});
     addCommandRunner.run({name: 'Second Task - Progress'});
     addCommandRunner.run({name: 'Second Task'});
-    const allTasksListRequest: ListCommandRequest = {statusCode: TaskStatus.IN_PROGRESS};
+    const allTasksListRequest: ListCommandRequest = {statusCode: Core.TaskStatus.IN_PROGRESS};
 
     // Act
     sut.run(allTasksListRequest);

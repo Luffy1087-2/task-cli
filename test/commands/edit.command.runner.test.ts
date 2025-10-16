@@ -1,15 +1,19 @@
 import {describe, it, before, after} from 'node:test';
 import assert from 'node:assert';
-import type { CommandRunner } from '../../src/types/commands/command-runner.interface.js';
-import type { AddCommandRequest, ChangeStatusCommandRequest, EditCommandRequest } from '../../src/types/commands/command.requests.types.js';
+
+// Types
+import type { CommandRunner } from '../../src/types/commands/command-runner.types.js';
+import type { AddCommandRequest, EditCommandRequest } from '../../src/types/commands/command.requests.types.js';
+
+// Concretes
+import { deleteJsonTest, readJsonTest } from '../utils/jsonTest.js';
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
 import { EditCommandRunner } from '../../src/commands/edit.command-runner.js';
-import { deleteJsonTest, readJsonTest } from '../utils/jsonTest.js';
 
 describe('edit.command.runner', {}, () => {
   const defaultTaskName = 'Task Test';
   const newTaskName = 'New Task Name';
-  let sut: CommandRunner;
+  let sut: CommandRunner.EditCommandRunner;
 
   before(() => {
     deleteJsonTest();

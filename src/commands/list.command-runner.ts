@@ -1,28 +1,30 @@
-import { TasksManager } from '../core/task-manager.js';
+// Types
+import type { Core } from '../types/core/core.types.js';
 import type { ListCommandRequest } from '../types/commands/command.requests.types.js';
-import type { CommandRunner } from '../types/commands/command-runner.interface.js';
-import { TaskStatus, type TaskJson } from '../types/core/task.types.js';
-import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
+import type { CommandRunner } from '../types/commands/command-runner.types.js';
+
+// Concretes
+import { TasksManager } from '../core/task-manager.js';
 import { CodeToTaskStatus, TaskStatusToCode } from '../core/task-status.enum.mapping.js';
 
-export class ListCommandRunner implements CommandRunner {
-  private readonly tasksManager: TasksJsonManager;
+export class ListCommandRunner implements CommandRunner.ListCommandRunner {
+  private readonly tasksManager: Core.TasksManager;
 
   constructor() {
     this.tasksManager = new TasksManager();
   }
 
   run(request: ListCommandRequest): void {
-    if (request.statusCode && !TaskStatusToCode(request.statusCode as TaskStatus)) throw new TypeError('StatusCode is not recognized');
+    if (request.statusCode && !TaskStatusToCode(request.statusCode as Core.TaskStatus)) throw new TypeError('StatusCode is not recognized');
     const tasksJson = this.tasksManager.readOrCreate();
     if (!tasksJson.length) return void console.log('Tasks are empty');
-    if (request.statusCode === undefined) return void tasksJson.forEach((t: TaskJson, i: number) => this.printTask(t, i));
-    const filteredTasks = tasksJson.filter(t => t.status.toString() === TaskStatusToCode(request.statusCode as TaskStatus));
-    if (filteredTasks.length) filteredTasks.forEach((t: TaskJson, i: number) => this.printTask(t, i));
+    if (request.statusCode === undefined) return void tasksJson.forEach((t: Core.TaskJson, i: number) => this.printTask(t, i));
+    const filteredTasks = tasksJson.filter(t => t.status.toString() === TaskStatusToCode(request.statusCode as Core.TaskStatus));
+    if (filteredTasks.length) filteredTasks.forEach((t: Core.TaskJson, i: number) => this.printTask(t, i));
     else console.log('No tasks match');
   }
 
-  private printTask(task: TaskJson, index: number) {
+  private printTask(task: Core.TaskJson, index: number) {
     if (index !== 0) console.log('\n- - - - - - - - - - - - - -\n');
     console.log(`Id: ${task.id}`);
     console.log(`Name: ${task.description}`);

@@ -1,11 +1,13 @@
-import { TasksManager } from '../core/task-manager.js';
-import type { CommandRunner as CommandRunner } from '../types/commands/command-runner.interface.js';
+// Types
+import type { Core } from '../types/core/core.types.js';
+import type { CommandRunner } from '../types/commands/command-runner.types.js';
 import type { AddCommandRequest } from '../types/commands/command.requests.types.js';
-import { TaskStatus, type TaskJson } from '../types/core/task.types.js';
-import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
 
-export class AddCommandRunner implements CommandRunner {
-  private readonly tasksManager: TasksJsonManager;
+// Concretes
+import { TasksManager } from '../core/task-manager.js';
+
+export class AddCommandRunner implements CommandRunner.AddCommandRunner {
+  private readonly tasksManager: Core.TasksManager;
   
   constructor() {
     this.tasksManager = new TasksManager();
@@ -21,14 +23,14 @@ export class AddCommandRunner implements CommandRunner {
     console.log('New task was added');
   }
 
-  private getNewId(tasksJson: TaskJson[]): number {
+  private getNewId(tasksJson: Core.TaskJson[]): number {
     const ids = tasksJson.map(t => t.id);
     const maxId = ids.length ? Math.max(...ids) : 0;
 
     return maxId + 1;
   }
 
-  private getNewTask(newId: number, request: AddCommandRequest): TaskJson {
+  private getNewTask(newId: number, request: AddCommandRequest): Core.TaskJson {
     const date = Date.now()
     return {
       id: newId,

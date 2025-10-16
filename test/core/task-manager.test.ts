@@ -1,14 +1,17 @@
-import { after, afterEach, before, beforeEach, describe, it } from 'node:test';
-import { TaskStatus, type TaskJson } from '../../src/types/core/task.types.js';
-import { type TasksJsonManager } from '../../src/types/core/taskManager.interface.js';
-import { TasksManager } from '../../src/core/task-manager.js';
 import assert from 'node:assert';
+import { after, afterEach, before, beforeEach, describe, it } from 'node:test';
+
+// Types
+import { type Core } from '../../src/types/core/core.types.js';
+
+// Concretes
 import { deleteJsonTest } from '../utils/jsonTest.js';
+import { TasksManager } from '../../src/core/task-manager.js';
 
 describe('task-manager', () => {
-  let sut: TasksJsonManager;
+  let sut: Core.TasksManager;
 
-  function getTask(id: number, description: string): TaskJson {
+  function getTask(id: number, description: string): Core.TaskJson {
     return {
       id,
       description,

@@ -1,15 +1,18 @@
 import {describe, it, before, after, beforeEach, afterEach} from 'node:test';
 import assert from 'node:assert';
-import type { CommandRunner } from '../../src/types/commands/command-runner.interface.js';
+// Types
+import { Core } from '../../src/types/core/core.types.js';
+import type { CommandRunner } from '../../src/types/commands/command-runner.types.js';
 import type { AddCommandRequest, ChangeStatusCommandRequest } from '../../src/types/commands/command.requests.types.js';
+
+// Concretes
 import { AddCommandRunner } from '../../src/commands/add.command-runner.js';
-import { TaskStatus } from '../../src/types/core/task.types.js';
 import { ChangeStatusCommandRunner } from '../../src/commands/change-status.command-runner.js';
 import { deleteJsonTest, readJsonTest } from '../utils/jsonTest.js';
 import { TaskStatusToCode } from '../../src/core/task-status.enum.mapping.js';
 
 describe('change-status.command.runner', {}, () => {
-  let sut: CommandRunner;
+  let sut: CommandRunner.ChangeStatusCommandRunner;
 
   before(() => {
     deleteJsonTest();
@@ -48,7 +51,7 @@ describe('change-status.command.runner', {}, () => {
     const oldTasks = readJsonTest();
     assert.equal(oldTasks.length, 1);
     assert.equal(oldTasks[0]?.id, 1);
-    assert.equal(oldTasks[0]?.status, TaskStatusToCode(TaskStatus.TODO));
+    assert.equal(oldTasks[0]?.status, TaskStatusToCode(Core.TaskStatus.TODO));
     assert.equal(typeof oldTasks[0]?.updatedAt, 'number');
 
     // Arrange
@@ -62,6 +65,6 @@ describe('change-status.command.runner', {}, () => {
     const tasks = readJsonTest();
     assert.equal(tasks.length, 1);
     assert.notEqual(tasks[0]?.updatedAt, updateTime);
-    assert.equal(tasks[0]?.status, TaskStatusToCode(TaskStatus.IN_PROGRESS));
+    assert.equal(tasks[0]?.status, TaskStatusToCode(Core.TaskStatus.IN_PROGRESS));
   });
 });

@@ -1,12 +1,14 @@
-import { TasksManager } from '../core/task-manager.js';
+// Types
+import type { Core } from '../types/core/core.types.js';
 import type { ChangeStatusCommandRequest } from '../types/commands/command.requests.types.js';
-import type { CommandRunner } from '../types/commands/command-runner.interface.js';
-import { type TaskJson } from '../types/core/task.types.js';
-import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
+import type { CommandRunner } from '../types/commands/command-runner.types.js';
+
+// Concretes
+import { TasksManager } from '../core/task-manager.js';
 import { CodeToTaskStatus } from '../core/task-status.enum.mapping.js';
 
-export class ChangeStatusCommandRunner implements CommandRunner {
-  private readonly tasksManager: TasksJsonManager;
+export class ChangeStatusCommandRunner implements CommandRunner.ChangeStatusCommandRunner {
+  private readonly tasksManager: Core.TasksManager;
 
   constructor() {
     this.tasksManager = new TasksManager();
@@ -22,7 +24,7 @@ export class ChangeStatusCommandRunner implements CommandRunner {
     console.log(`Status ${CodeToTaskStatus(request.statusCode)?.toUpperCase()} changed for task Id ${request.id}`);
   }
 
-  private updateTask(taskById: TaskJson, request: ChangeStatusCommandRequest) {
+  private updateTask(taskById: Core.TaskJson, request: ChangeStatusCommandRequest) {
     taskById.status = request.statusCode;
     taskById.updatedAt = Date.now();
   }

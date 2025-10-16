@@ -1,12 +1,11 @@
 import fs from 'fs-extra';
 import path from 'path';
-import type { TaskJson } from '../types/core/task.types.js';
-import type { TasksJsonManager } from '../types/core/taskManager.interface.js';
+import type { Core } from '../types/core/core.types.js';
 
-export class TasksManager implements TasksJsonManager {
-  private tasksJson: TaskJson[] | undefined;
+export class TasksManager implements Core.TasksManager {
+  private tasksJson: Core.TaskJson[] | undefined;
 
-  readOrCreate(): TaskJson[] {
+  readOrCreate(): Core.TaskJson[] {
     fs.ensureDirSync(this.basePath);
     const taskJsonFilePath = path.normalize(`${this.basePath}/tasks.json`);
     if (!fs.existsSync(taskJsonFilePath)) {
@@ -45,7 +44,7 @@ export class TasksManager implements TasksJsonManager {
     return path.normalize(`${process.cwd()}/task`);
   }
 
-  private getTasksJson(): TaskJson[] {
+  private getTasksJson(): Core.TaskJson[] {
     if (!this.tasksJson) return this.readOrCreate();
     return this.tasksJson;
   }
