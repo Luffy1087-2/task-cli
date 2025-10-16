@@ -72,18 +72,19 @@ describe('list.command.runner', {}, () => {
 
     // Assert
     const outputButAddingLogs = output.slice(2);
-    assert.equal(outputButAddingLogs.length, 11);
-    assert.equal(outputButAddingLogs[0], 'Id: 1');
-    assert.equal(outputButAddingLogs[1], 'Name: First Task');
-    assert.equal(outputButAddingLogs[2], 'Status: TODO - 0');
-    assert.match(outputButAddingLogs[3] ?? '', /^Created At:\s[\d\/]+,\s[\d:]+$/);
-    assert.match(outputButAddingLogs[4] ?? '', /^Updated At:\s[\d\/]+,\s[\d:]+$/);
-    assert.equal(outputButAddingLogs[5], '\n- - - - - - - - - - - - - -\n');
-    assert.equal(outputButAddingLogs[6], 'Id: 2');
-    assert.equal(outputButAddingLogs[7], 'Name: Second Task');
-    assert.equal(outputButAddingLogs[8], 'Status: TODO - 0');
-    assert.match(outputButAddingLogs[9] ?? '', /^Created At:\s[\d\/]+,\s[\d:]+$/);
-    assert.match(outputButAddingLogs[10] ?? '', /^Updated At:\s[\d\/]+,\s[\d:]+$/);
+    assert.equal(outputButAddingLogs.length, 12);
+    assert.equal(outputButAddingLogs[0], '\n');
+    assert.equal(outputButAddingLogs[1], 'Id: 1');
+    assert.equal(outputButAddingLogs[2], 'Name: First Task');
+    assert.equal(outputButAddingLogs[3], 'Status: TODO - 0');
+    assert.match(outputButAddingLogs[4] ?? '', /^Created At:\s[\d\/]+,\s[\d:]+$/);
+    assert.match(outputButAddingLogs[5] ?? '', /^Updated At:\s[\d\/]+,\s[\d:]+$/);
+    assert.equal(outputButAddingLogs[6], '\n- - - - - - - - - - - - - -\n');
+    assert.equal(outputButAddingLogs[7], 'Id: 2');
+    assert.equal(outputButAddingLogs[8], 'Name: Second Task');
+    assert.equal(outputButAddingLogs[9], 'Status: TODO - 0');
+    assert.match(outputButAddingLogs[10] ?? '', /^Created At:\s[\d\/]+,\s[\d:]+$/);
+    assert.match(outputButAddingLogs[11] ?? '', /^Updated At:\s[\d\/]+,\s[\d:]+$/);
   });
 
   it('should show filtered Tasks by StatusCode.PROGRESS', () => {
@@ -99,12 +100,13 @@ describe('list.command.runner', {}, () => {
 
     // Assert
     const outputButAddingLogs = output.slice(4);
-    assert.equal(outputButAddingLogs.length, 5);
-    assert.equal(outputButAddingLogs[0], 'Id: 2');
-    assert.equal(outputButAddingLogs[1], 'Name: Second Task - Progress');
-    assert.equal(outputButAddingLogs[2], 'Status: IN-PROGRESS - 1');
-    assert.match(outputButAddingLogs[3] ?? '', /^Created At:\s[\d\/]+,\s[\d:]+$/);
-    assert.match(outputButAddingLogs[4] ?? '', /^Updated At:\s[\d\/]+,\s[\d:]+$/);
+    assert.equal(outputButAddingLogs.length, 6);
+    assert.equal(outputButAddingLogs[0], '\n');
+    assert.equal(outputButAddingLogs[1], 'Id: 2');
+    assert.equal(outputButAddingLogs[2], 'Name: Second Task - Progress');
+    assert.equal(outputButAddingLogs[3], 'Status: IN-PROGRESS - 1');
+    assert.match(outputButAddingLogs[4] ?? '', /^Created At:\s[\d\/]+,\s[\d:]+$/);
+    assert.match(outputButAddingLogs[5] ?? '', /^Updated At:\s[\d\/]+,\s[\d:]+$/);
   });
 
   it('should show \"No tasks match\" when the search by StatusCode.DONE is not found', () => {

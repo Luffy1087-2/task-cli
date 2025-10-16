@@ -25,7 +25,8 @@ export class ListCommandRunner implements CommandRunner.ListCommandRunner {
   }
 
   private printTask(task: Core.TaskJson, index: number) {
-    if (index !== 0) console.log('\n- - - - - - - - - - - - - -\n');
+    if (index === 0) console.log('\n');
+    else console.log('\n- - - - - - - - - - - - - -\n');
     console.log(`Id: ${task.id}`);
     console.log(`Name: ${task.description}`);
     console.log(`Status: ${CodeToTaskStatus(task.status)?.toUpperCase()} - ${task.status}`);
