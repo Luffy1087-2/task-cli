@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import type { TaskJson } from '../../src/types/core/task.types.js';
+import { Core } from '../../src/types/core/core.types.js';
 
 const taskJsonDirPath = path.normalize(`${process.cwd()}/dist/test/task`);
 const taskJsonFilePath = path.normalize(`${taskJsonDirPath}/tasks.json`);
 
-function readJsonTest(): TaskJson[] {
+function readJsonTest(): Core.TaskJson[] {
   if (!fs.existsSync(taskJsonFilePath)) {
     return [];
   }
