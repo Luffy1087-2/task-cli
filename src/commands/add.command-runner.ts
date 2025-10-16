@@ -20,7 +20,7 @@ export class AddCommandRunner implements CommandRunner.AddCommandRunner {
     const newTask = this.getNewTask(newId, request);
     tasksJson.push(newTask);
     this.tasksManager.updateTasksJson();
-    console.log('New task was added');
+    console.log('\nNew task was added');
   }
 
   private getNewId(tasksJson: Core.TaskJson[]): number {

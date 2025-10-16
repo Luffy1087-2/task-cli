@@ -120,6 +120,6 @@ describe('list.command.runner', {}, () => {
     // Assert
     const outputButAddingLogs = output.slice(3);
     assert.equal(outputButAddingLogs.length, 1);
-    assert.equal(outputButAddingLogs[0], 'No tasks match');
+    assert.match((outputButAddingLogs[0]+''), /No tasks match/i);
   });
 });

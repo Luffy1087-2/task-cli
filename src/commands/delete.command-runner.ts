@@ -20,6 +20,6 @@ export class DeleteCommandRunner implements CommandRunner.DeleteCommandRunner {
     if (indexToDelete === -1) throw new RangeError('Task Id not found');
     tasksJson.splice(indexToDelete, 1);
     this.tasksManager.updateTasksJson();
-    console.log(`Task Id ${request.id} is deleted`);
+    console.log(`\nTask Id ${request.id} is deleted`);
   }
 }

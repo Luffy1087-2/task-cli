@@ -21,7 +21,7 @@ export class ListCommandRunner implements CommandRunner.ListCommandRunner {
     if (request.statusCode === undefined) return void tasksJson.forEach((t: Core.TaskJson, i: number) => this.printTask(t, i));
     const filteredTasks = tasksJson.filter(t => t.status.toString() === TaskStatusToCode(request.statusCode as Core.TaskStatus));
     if (filteredTasks.length) filteredTasks.forEach((t: Core.TaskJson, i: number) => this.printTask(t, i));
-    else console.log('No tasks match');
+    else console.log('\nNo tasks match');
   }
 
   private printTask(task: Core.TaskJson, index: number) {
