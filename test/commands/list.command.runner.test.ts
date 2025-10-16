@@ -73,7 +73,7 @@ describe('list.command.runner', {}, () => {
     // Assert
     const outputButAddingLogs = output.slice(2);
     assert.equal(outputButAddingLogs.length, 12);
-    assert.equal(outputButAddingLogs[0], '\n');
+    assert.equal(outputButAddingLogs[0], '');
     assert.equal(outputButAddingLogs[1], 'Id: 1');
     assert.equal(outputButAddingLogs[2], 'Name: First Task');
     assert.equal(outputButAddingLogs[3], 'Status: TODO - 0');
@@ -101,7 +101,7 @@ describe('list.command.runner', {}, () => {
     // Assert
     const outputButAddingLogs = output.slice(4);
     assert.equal(outputButAddingLogs.length, 6);
-    assert.equal(outputButAddingLogs[0], '\n');
+    assert.equal(outputButAddingLogs[0], '');
     assert.equal(outputButAddingLogs[1], 'Id: 2');
     assert.equal(outputButAddingLogs[2], 'Name: Second Task - Progress');
     assert.equal(outputButAddingLogs[3], 'Status: IN-PROGRESS - 1');
